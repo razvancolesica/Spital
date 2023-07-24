@@ -68,6 +68,14 @@ public class SpitalController {
     }
 
 
+    //Adauga rezervare.
+    @PostMapping("/addReservation")
+    public Reservation addReservation()
+    {
+        return service.addReservation();
+    }
+
+
 
 
   /*  @PostMapping("/addReservation")

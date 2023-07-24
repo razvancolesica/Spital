@@ -96,6 +96,17 @@ public class SpitalService {
         return list.stream().filter(r -> r.getPacientID().equals(pacientID)).collect(Collectors.toList());
     }
 
+    //Adauga rezervare.
+    public Reservation addReservation()
+    {
+        Reservation p1 = new Reservation();
+        p1.setId("01");
+        p1.setPacientID("0001");
+        p1.setReservationDate(LocalDateTime.of(2023, 8, 12, 10, 30));
+        p1.setSpecialization("Ortopedie");
+        return p1;
+    }
+
    /* public boolean addReservation(AddReservation reservation){
         return true;
     }

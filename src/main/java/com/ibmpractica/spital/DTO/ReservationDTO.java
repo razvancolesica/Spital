@@ -1,14 +1,17 @@
 package com.ibmpractica.spital.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class Reservation {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReservationDTO {
 
     private String id;
     private String pacientID;

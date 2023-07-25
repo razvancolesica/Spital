@@ -1,11 +1,12 @@
 package com.ibmpractica.spital.DTO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-public class Pacient {
+@AllArgsConstructor
+@NoArgsConstructor
+public class PacientDTO {
 
     private String firstName;
     private String lastName;

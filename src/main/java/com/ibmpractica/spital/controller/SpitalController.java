@@ -1,20 +1,19 @@
 package com.ibmpractica.spital.controller;
 
-//import com.ibmpractica.spital.DTO.AddReservation;
+//import com.ibmpractica.spital.DTO.AddReservationDTO;
 
-import com.ibmpractica.spital.DTO.AddReservation;
-import com.ibmpractica.spital.DTO.Pacient;
-import com.ibmpractica.spital.DTO.Reservation;
+import com.ibmpractica.spital.DTO.AddPacientDTO;
+import com.ibmpractica.spital.DTO.PacientDTO;
+import com.ibmpractica.spital.DTO.ReservationDTO;
+import com.ibmpractica.spital.entity.Pacient;
+import com.ibmpractica.spital.entity.Reservation;
 import com.ibmpractica.spital.service.SpitalService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +27,9 @@ public class SpitalController {
 
     //Afiseaza toti pacientii.
     @GetMapping("/getAllPacients")
-    public List<Pacient> getAllPacients() {
+    public List<PacientDTO> getAllPacients() {
         log.info("SpitalController.getAllPacients() has started...");
-        List<Pacient> result = service.getAllPacients();
+        List<PacientDTO> result = service.getAllPacients();
         log.info("SpitalController.getAllPacients() has finished.");
         return result;
     }
@@ -38,79 +37,68 @@ public class SpitalController {
 
     //Afiseaza toate rezervarile.
     @GetMapping("/getAllReservations")
-    public List<Reservation> getAllReservations() {
-        return service.getReservations();
+    public List<ReservationDTO> getAllReservations() {
+        log.info("SpitalController.getAllReservations() has started...");
+        List<ReservationDTO> result = service.getAllReservations();
+        log.info("SpitalController.getAllReservations() has finished.");
+        return result;
     }
 
 
     //Afiseaza rezervarea dupa ID-ul rezervarii.
     @GetMapping("/getReservation")
-    public ResponseEntity<List<Reservation>> getReservation(String reservationID) {
-
-        if (service.getReservation(reservationID).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.of(Optional.ofNullable(service.getReservation(reservationID)));
+    public List<Reservation> getReservation(String reservationID) {
+        log.info("SpitalController.getReservation() has started...");
+        return service.getReservation(reservationID);
     }
 
 
     //Afiseaza rezervarea dupa ID-ul pacientului.
     @GetMapping("/getReservationForPacient")
-    public ResponseEntity<List<Reservation>> getReservationForPacient(String pacientID) {
-
-        if (service.getReservationForPacient(pacientID).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.of(Optional.ofNullable(service.getReservationForPacient(pacientID)));
+    public List<Reservation> getReservationForPacient(String pacientID) {
+        log.info("SpitalController.getReservationForPacient() has started...");
+        return service.getReservationForPacient(pacientID);
     }
 
 
-    //Adauga rezervare.
-   /* @PostMapping("/addReservation")
-    public Reservation addReservation()
-    {
-        return service.addReservation();
-    }
-
-    */
-
+    //Adaugare pacient
     @PostMapping("/addPacient")
-    public ResponseEntity addReservation(@RequestBody Pacient pacient){
-
-        return service.addPacient(pacient) ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    public Pacient addPacient(Pacient pacient){
+        return service.addPacient(pacient);
     }
 
 
+    //Adaugare rezervare
    @PostMapping("/addReservation")
-    public ResponseEntity addReservation(@RequestBody AddReservation reservation){
-
-        return service.addReservation(reservation) ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    public Reservation addReservation(Reservation reservation){
+       return service.addReservation(reservation);
     }
 
 
-
-    @PostMapping("/addPacient")
-    public String addPacient() {
-        return "Pacient added";
-    }
-
+    //Sterge rezervare
     @DeleteMapping("/deleteReservation")
-    public ResponseEntity deleteReservation(String reservationID) {
-
-        if (service.deleteReservation(reservationID)) {
-            ResponseEntity.ok().build();
-        } else ResponseEntity.notFound().build();
-
-        return service.deleteReservation(reservationID) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public void deleteReservation(String reservationID) {
+        service.deleteReservation(reservationID);
     }
 
+
+    //Sterge pacient
     @DeleteMapping("/deletePacient")
-    public String deletePacient() {
-        return "Pacient deleted";
+    public void deletePacient(String pacientID) {
+        service.deletePacient(pacientID);
     }
 
+
+    //Editeaza pacient
     @PostMapping("/editPacient")
-    public String editPacient() {
-        return "Pacient edited";
+    public void editPacient(String pacientID,Pacient pacient) {
+        service.editPacient(pacientID,pacient);
+    }
+
+
+    //Editeaza rezervare
+    @PostMapping("/editReservation")
+    public void editReservation(String reservationID,Reservation reservation) {
+        service.editReservation(reservationID,reservation);
     }
 }

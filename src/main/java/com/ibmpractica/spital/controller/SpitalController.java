@@ -2,6 +2,7 @@ package com.ibmpractica.spital.controller;
 
 //import com.ibmpractica.spital.DTO.AddReservation;
 
+import com.ibmpractica.spital.DTO.AddReservation;
 import com.ibmpractica.spital.DTO.Pacient;
 import com.ibmpractica.spital.DTO.Reservation;
 import com.ibmpractica.spital.service.SpitalService;
@@ -10,11 +11,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -69,22 +66,28 @@ public class SpitalController {
 
 
     //Adauga rezervare.
-    @PostMapping("/addReservation")
+   /* @PostMapping("/addReservation")
     public Reservation addReservation()
     {
         return service.addReservation();
     }
 
+    */
+
+    @PostMapping("/addPacient")
+    public ResponseEntity addReservation(@RequestBody Pacient pacient){
+
+        return service.addPacient(pacient) ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    }
 
 
-
-  /*  @PostMapping("/addReservation")
-    public ResponseEntity addReservation(AddReservation reservation){
+   @PostMapping("/addReservation")
+    public ResponseEntity addReservation(@RequestBody AddReservation reservation){
 
         return service.addReservation(reservation) ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-   */
+
 
     @PostMapping("/addPacient")
     public String addPacient() {

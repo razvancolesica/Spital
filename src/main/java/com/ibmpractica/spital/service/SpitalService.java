@@ -1,5 +1,6 @@
 package com.ibmpractica.spital.service;
 
+import com.ibmpractica.spital.DTO.AddReservation;
 import com.ibmpractica.spital.DTO.Pacient;
 import com.ibmpractica.spital.DTO.Reservation;
 import lombok.extern.log4j.Log4j2;
@@ -97,7 +98,7 @@ public class SpitalService {
     }
 
     //Adauga rezervare.
-    public Reservation addReservation()
+   /* public Reservation addReservation()
     {
         Reservation p1 = new Reservation();
         p1.setId("01");
@@ -107,10 +108,14 @@ public class SpitalService {
         return p1;
     }
 
-   /* public boolean addReservation(AddReservation reservation){
+    */
+
+    public boolean addReservation(AddReservation reservation){
         return true;
     }
-    */
+    public boolean addPacient(Pacient pacient){
+        return true;
+    }
 
     public boolean deleteReservation(String reservationID) {
         return false;

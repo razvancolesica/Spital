@@ -47,7 +47,7 @@ public class SpitalController {
 
     //Afiseaza rezervarea dupa ID-ul rezervarii.
     @GetMapping("/getReservation")
-    public List<Reservation> getReservation(String reservationID) {
+    public List<Reservation> getReservation(@RequestParam String reservationID) {
         log.info("SpitalController.getReservation() has started...");
         return service.getReservation(reservationID);
     }
@@ -55,7 +55,7 @@ public class SpitalController {
 
     //Afiseaza rezervarea dupa ID-ul pacientului.
     @GetMapping("/getReservationForPacient")
-    public List<Reservation> getReservationForPacient(String pacientID) {
+    public List<Reservation> getReservationForPacient(@RequestParam String pacientID) {
         log.info("SpitalController.getReservationForPacient() has started...");
         return service.getReservationForPacient(pacientID);
     }
@@ -63,42 +63,42 @@ public class SpitalController {
 
     //Adaugare pacient
     @PostMapping("/addPacient")
-    public Pacient addPacient(Pacient pacient){
+    public Pacient addPacient(@RequestBody Pacient pacient){
         return service.addPacient(pacient);
     }
 
 
     //Adaugare rezervare
    @PostMapping("/addReservation")
-    public Reservation addReservation(Reservation reservation){
+    public Reservation addReservation(@RequestBody Reservation reservation){
        return service.addReservation(reservation);
     }
 
 
     //Sterge rezervare
     @DeleteMapping("/deleteReservation")
-    public void deleteReservation(String reservationID) {
+    public void deleteReservation(@RequestParam String reservationID) {
         service.deleteReservation(reservationID);
     }
 
 
     //Sterge pacient
     @DeleteMapping("/deletePacient")
-    public void deletePacient(String pacientID) {
+    public void deletePacient(@RequestParam String pacientID) {
         service.deletePacient(pacientID);
     }
 
 
     //Editeaza pacient
     @PostMapping("/editPacient")
-    public void editPacient(String pacientID,Pacient pacient) {
-        service.editPacient(pacientID,pacient);
+    public void editPacient(@RequestParam String id,@RequestBody Pacient pacient) {
+        service.editPacient(id,pacient);
     }
 
 
     //Editeaza rezervare
     @PostMapping("/editReservation")
-    public void editReservation(String reservationID,Reservation reservation) {
+    public void editReservation(@RequestParam String reservationID,@RequestBody Reservation reservation) {
         service.editReservation(reservationID,reservation);
     }
 }

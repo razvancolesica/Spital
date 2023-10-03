@@ -37,50 +37,11 @@ public class SpitalService {
                 .collect(Collectors.toList());
     }
 
-    //Afiseaza toate rezervarile
-    public List<ReservationDTO> getAllReservations()
-    {
-        log.info("SpitalService.getReservations() retrieving all reservations...");
-        return reservationRepository.findAll().stream()
-                .map(reservation -> mapper.map(reservation,ReservationDTO.class))
-                .collect(Collectors.toList());
-    }
-
-
-    //Adauga rezervare.
-    public Reservation addReservation(Reservation reservation)
-    {
-        reservationRepository.save(reservation);
-        return reservation;
-    }
-
-
-    //Sterge rezervare
-    public void deleteReservation(String reservationID) {
-        reservationRepository.deleteById(reservationID);
-    }
-
-
-    //Editeaza rezervare
-    public void editReservation(String reservationID, Reservation r)
-    {
-        List<Reservation> list = reservationRepository.findAll();
-        for(Reservation reservation : list)
-        {
-            if(reservation.getId().equals(reservationID))
-            {
-                reservation.setReservationDate(r.getReservationDate());
-                reservation.setSpecialization(r.getSpecialization());
-                reservation.setMedic(r.getMedic());
-            }
-            reservationRepository.save(reservation);
-        }
-    }
-
 
     //Adauga pacient
     public Pacient addPacient(Pacient pacient)
     {
+        log.info("SpitalService.addPacient(Pacient pacient) adding pacient...");
         pacientRepository.save(pacient);
         return pacient;
     }
@@ -89,6 +50,7 @@ public class SpitalService {
     //Sterge pacient
     public void deletePacient(String pacientID)
     {
+        log.info("SpitalService.deletePacient(String pacientID) deleting pacient...");
         pacientRepository.deleteById(pacientID);
     }
 
@@ -96,6 +58,7 @@ public class SpitalService {
     //Editeaza pacient
     public void editPacient(String pacientID, Pacient p)
     {
+        log.info("SpitalService.editPacient(String pacientID, Pacient p) editing pacient...");
         List<Pacient> list = pacientRepository.findAll();
         for(Pacient pacient : list)
         {
@@ -111,6 +74,48 @@ public class SpitalService {
         }
     }
 
+    //Afiseaza toate rezervarile
+    public List<ReservationDTO> getAllReservations()
+    {
+        log.info("SpitalService.getReservations() retrieving all reservations...");
+        return reservationRepository.findAll().stream()
+                .map(reservation -> mapper.map(reservation,ReservationDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+    //Adauga rezervare.
+    public Reservation addReservation(Reservation reservation)
+    {
+        log.info("SpitalService.addReservation(Reservation reservation) adding reservation...");
+        reservationRepository.save(reservation);
+        return reservation;
+    }
+
+
+    //Sterge rezervare
+    public void deleteReservation(String reservationID) {
+        log.info("SpitalService.deleteReservation(String reservationID) deleting reservation...");
+        reservationRepository.deleteById(reservationID);
+    }
+
+
+    //Editeaza rezervare
+    public void editReservation(String reservationID, Reservation r)
+    {
+        log.info("SpitalService.editReservation(String reservationID, Reservation r) editing reservation...");
+        List<Reservation> list = reservationRepository.findAll();
+        for(Reservation reservation : list)
+        {
+            if(reservation.getId().equals(reservationID))
+            {
+                reservation.setReservationDate(r.getReservationDate());
+                reservation.setSpecialization(r.getSpecialization());
+                reservation.setMedic(r.getMedic());
+            }
+            reservationRepository.save(reservation);
+        }
+    }
 
 
     //Afiseaza rezervarea dupa ID-ul rezervarii.

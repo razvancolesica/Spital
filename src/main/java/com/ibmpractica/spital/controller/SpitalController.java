@@ -1,8 +1,4 @@
 package com.ibmpractica.spital.controller;
-
-//import com.ibmpractica.spital.DTO.AddReservationDTO;
-
-import com.ibmpractica.spital.DTO.AddPacientDTO;
 import com.ibmpractica.spital.DTO.PacientDTO;
 import com.ibmpractica.spital.DTO.ReservationDTO;
 import com.ibmpractica.spital.entity.Pacient;

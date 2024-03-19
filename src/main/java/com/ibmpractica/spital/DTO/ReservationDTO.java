@@ -17,4 +17,5 @@ public class ReservationDTO {
     private String pacientID;
     private LocalDateTime reservationDate;
     private String specialization;
+    private String medic;
 }

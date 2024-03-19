@@ -83,12 +83,13 @@ public class SpitalService {
 
 
     //Adauga rezervare.
-    public Reservation addReservation(Reservation reservation)
-    {
-        log.info("SpitalService.addReservation(Reservation reservation) adding reservation...");
+    public ReservationDTO addReservation(ReservationDTO reservationDTO) {
+        log.info("SpitalService.addReservation(ReservationDTO reservationDTO) adding reservation...");
+        Reservation reservation = mapper.map(reservationDTO, Reservation.class);
         reservationRepository.save(reservation);
-        return reservation;
+        return mapper.map(reservation, ReservationDTO.class);
     }
+
 
 
     //Sterge rezervare

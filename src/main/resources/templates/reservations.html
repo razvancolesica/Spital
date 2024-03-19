@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+  <nav>
+    <ul>
+      <li><a href="index">Acasă</a></li>
+      <li><a href="reservations">Rezervări</a></li>
+      <li><a href="specializations">Specializări</a></li>
+      <li><a href="about">Despre</a></li>
+      <li><a href="showAddReservation">Adaugă Rezervare</a></li>
+      <!-- Butonul pentru pagina de Log In -->
+      <div class="login-button">
+        <a href="login">Log In</a>
+      </div>
+    </ul>
+
+  </nav>
+</header>
+
+<main>
+  <h2 class="h2-title">Rezervări disponibile:</h2>
+
+  <!-- Tabel pentru afișarea rezervărilor -->
+  <table class="table-container">
+    <thead>
+    <tr>
+      <th>ID Rezervare</th>
+      <th>ID Pacient</th>
+      <th>Data și oră rezervare</th>
+      <th>Specializare</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterăm prin lista de rezervări și afișăm fiecare rezervare într-un rând de tabel -->
+    <tr th:each="reservation : ${reservations}">
+      <td th:text="${reservation.id}"></td>
+      <td th:text="${reservation.pacientID}"></td>
+      <td th:text="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+      <td th:text="${reservation.specialization}"></td>
+      <!-- Celulă pentru butoanele de edit și delete -->
+      <td>
+        <!-- Butonul de edit -->
+        <form th:action="@{'/editReservation?id=' + ${reservation.id}}" method="post">
+          <button type="submit" class="button edit-button">Edit</button>
+        </form>
+        <!-- Butonul de delete -->
+        <form th:action="@{'/deleteReservation?id=' + ${reservation.id}}" method="post"
+              onsubmit="return confirm('Ești sigur că vrei să ștergi această rezervare?');">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+        <td colspan="5" th:if="${#lists.isEmpty(reservations)}">Nu există rezervări disponibile</td>
+    </tr>
+    </tbody>
+  </table>
+</main>
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adaugă Rezervare</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h2 class="h2-title">Adaugă Rezervare</h2>
+
+<form th:action="@{/addReservation}" th:object="${reservation}" method="post">
+  <input type="text" placeholder="pacientID" th:field="*{pacientID}"><br>
+  <input type="datetime-local" placeholder="reservationDate" th:field="*{reservationDate}"><br>
+  <input type="text" placeholder="specialization" th:field="*{specialization}"><br>
+  <input type="text" placeholder="medic" th:field="*{medic}"><br><br>
+  <button type="submit" class="button">Salvează</button>
+</form>
+
+</body>
+</html>

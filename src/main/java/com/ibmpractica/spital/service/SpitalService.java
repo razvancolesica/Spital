@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,24 +38,25 @@ public class SpitalService {
 
 
     //Adauga pacient
-    public Pacient addPacient(Pacient pacient)
+    public PacientDTO addPacient(PacientDTO pacientDTO)
     {
         log.info("SpitalService.addPacient(Pacient pacient) adding pacient...");
+        Pacient pacient = mapper.map(pacientDTO, Pacient.class);
         pacientRepository.save(pacient);
-        return pacient;
+        return mapper.map(pacient, PacientDTO.class);
     }
 
 
     //Sterge pacient
-    public void deletePacient(String pacientID)
+    public void deletePacient(Integer pacientID)
     {
         log.info("SpitalService.deletePacient(String pacientID) deleting pacient...");
-        pacientRepository.deleteById(pacientID);
+        pacientRepository.deleteById(String.valueOf(pacientID));
     }
 
 
     //Editeaza pacient
-    public void editPacient(String pacientID, Pacient p)
+    public void editPacient(Integer pacientID, PacientDTO p)
     {
         log.info("SpitalService.editPacient(String pacientID, Pacient p) editing pacient...");
         List<Pacient> list = pacientRepository.findAll();
@@ -70,6 +72,12 @@ public class SpitalService {
             }
             pacientRepository.save(pacient);
         }
+    }
+
+    public Optional<PacientDTO> getPacientById(Integer pacientID) {
+        log.info("SpitalService.getPacientById(Integer pacientID) retrieving pacient by ID...");
+        Optional<Pacient> pacientOptional = pacientRepository.findById(String.valueOf(pacientID));
+        return pacientOptional.map(p -> mapper.map(p, PacientDTO.class));
     }
 
     //Afiseaza toate rezervarile
@@ -93,9 +101,9 @@ public class SpitalService {
 
 
     //Sterge rezervare
-    public void deleteReservation(String reservationID) {
+    public void deleteReservation(Integer reservationID) {
         log.info("SpitalService.deleteReservation(String reservationID) deleting reservation...");
-        reservationRepository.deleteById(reservationID);
+        reservationRepository.deleteById(String.valueOf(reservationID));
     }
 
 

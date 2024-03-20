@@ -11,11 +11,11 @@
 <header>
   <nav>
     <ul>
-      <li><a href="index">Acasă</a></li>
-      <li><a href="reservations">Rezervări</a></li>
-      <li><a href="specializations">Specializări</a></li>
-      <li><a href="about">Despre</a></li>
-      <li><a href="showAddReservation">Adaugă Rezervare</a></li>
+      <li><a href="specializations">Specializations</a></li>
+      <li><a href="pacients">Pacients</a></li>
+      <li><a href="showAddPacient">Add Pacient</a></li>
+      <li><a href="reservations">Reservations</a></li>
+      <li><a href="showAddReservation">Add Reservations</a></li>
       <!-- Butonul pentru pagina de Log In -->
       <div class="login-button">
         <a href="login">Log In</a>
@@ -53,8 +53,8 @@
           <button type="submit" class="button edit-button">Edit</button>
         </form>
         <!-- Butonul de delete -->
-        <form th:action="@{'/deleteReservation?id=' + ${reservation.id}}" method="post"
-              onsubmit="return confirm('Ești sigur că vrei să ștergi această rezervare?');">
+        <form th:action="@{/deleteReservation}" method="post" onsubmit="return confirm('Ești sigur că vrei să ștergi această rezervare?');">
+          <input type="hidden" name="id" th:value="${reservation.id}" />
           <button type="submit">Delete</button>
         </form>
       </td>

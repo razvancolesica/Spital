@@ -65,7 +65,7 @@ public class SpitalController {
 
     // Sterge rezervare și reîncarcă pagina
     @PostMapping("/deleteReservation")
-    public String deleteReservation(@RequestParam String id) {
+    public String deleteReservation(@RequestParam Integer id) {
         log.info("SpitalController.deleteReservation() has started...");
         service.deleteReservation(id);
         log.info("SpitalController.deleteReservation() has finished.");
@@ -85,19 +85,12 @@ public class SpitalController {
 
 
 
-    @GetMapping("/about")
-    public String getAbout(){
-        return "about";
-    }
-
-
-
     //Afiseaza toti pacientii.
-    @GetMapping("/getAllPacients")
+    @GetMapping("/pacients")
     public ModelAndView getAllPacients() {
         log.info("SpitalController.getAllPacients() has started...");
         List<PacientDTO> pacients = service.getAllPacients();
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("pacients");
         modelAndView.addObject("pacients", pacients);
         log.info("SpitalController.getAllPacients() has finished.");
         return modelAndView;
@@ -105,21 +98,46 @@ public class SpitalController {
 
     //Adaugare pacient
     @PostMapping("/addPacient")
-    public Pacient addPacient(@RequestBody Pacient pacient){
-        return service.addPacient(pacient);
+    public String addPacient(@ModelAttribute("pacient") PacientDTO pacient){
+        service.addPacient(pacient);
+        return "redirect:/pacients";
     }
 
+    @GetMapping("/showAddPacient")
+    public String showAddPacient(Model model){
+        model.addAttribute("pacient", new PacientDTO());
+        return "addPacient";
+    }
+
+
     //Sterge pacient
-    @DeleteMapping("/deletePacient")
-    public void deletePacient(@RequestParam String pacientID) {
+    @PostMapping("/deletePacient")
+    public String deletePacient(@RequestParam Integer pacientID) {
+        log.info("SpitalController.deletePacient() has started...");
         service.deletePacient(pacientID);
+        log.info("SpitalController.deletePacient() has finished.");
+        return "redirect:/pacients"; // Redirecționează către pagina de pacienti
     }
 
 
     //Editeaza pacient
     @PostMapping("/editPacient")
-    public void editPacient(@RequestParam String id,@RequestBody Pacient pacient) {
+    public String editPacient(@RequestParam Integer id,@RequestBody PacientDTO pacient) {
         service.editPacient(id,pacient);
+        return "redirect:/pacients";
     }
+
+    @GetMapping("/showEditPacient")
+    public String showEditPacientPage(@RequestParam Integer id, Model model) {
+        // Obțineți pacientul cu id-ul specificat din baza de date
+        Optional<PacientDTO> pacientOptional = service.getPacientById(id);
+
+        // Verificați dacă pacientul există în baza de date
+        // Dacă pacientul există, adăugați-l ca atribut la model
+        // Returnați pagina de editare a pacientului
+        pacientOptional.ifPresent(pacientDTO -> model.addAttribute("pacient", pacientDTO));
+        return "editPacient";
+    }
+
 
 }

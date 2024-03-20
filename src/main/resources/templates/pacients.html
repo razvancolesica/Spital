@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacients</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="specializations">Specializations</a></li>
+            <li><a href="pacients">Pacients</a></li>
+            <li><a href="showAddPacient">Add Pacient</a></li>
+            <li><a href="reservations">Reservations</a></li>
+            <li><a href="showAddReservation">Add Reservations</a></li>
+            <!-- Butonul pentru pagina de Log In -->
+            <div class="login-button">
+                <a href="login">Log In</a>
+            </div>
+        </ul>
+
+    </nav>
+</header>
+
+<main>
+    <h2 class="h2-title">Rezervări disponibile:</h2>
+
+    <!-- Tabel pentru afișarea rezervărilor -->
+    <table class="table-container">
+        <thead>
+        <tr>
+            <th>ID Pacient</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>CNP</th>
+            <th>Age</th>
+            <th>Issue</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterăm prin lista de rezervări și afișăm fiecare rezervare într-un rând de tabel -->
+        <tr th:each="pacient : ${pacients}">
+            <td th:text="${pacient.pacientID}"></td>
+            <td th:text="${pacient.firstName}"></td>
+            <td th:text="${pacient.lastName}"></td>
+            <td th:text="${pacient.cnp}"></td>
+            <td th:text="${pacient.age}"></td>
+            <td th:text="${pacient.issue}"></td>
+            <!-- Celulă pentru butoanele de edit și delete -->
+            <td>
+                <!-- Butonul de edit -->
+                <form th:action="@{/editPacient}" method="get">
+                    <input type="hidden" name="id" th:value="${pacient.pacientID}" />
+                    <button type="submit" class="button edit-button">Edit</button>
+                </form>
+                <!-- Butonul de delete -->
+                <form th:action="@{/deletePacient}" method="post" onsubmit="return confirm('Ești sigur că vrei să ștergi acest pacient?');">
+                    <input type="hidden" name="pacientID" th:value="${pacient.pacientID}" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" th:if="${#lists.isEmpty(pacients)}">Nu există pacienți.</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+
+</body>
+</html>

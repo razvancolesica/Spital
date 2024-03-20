@@ -1,9 +1,6 @@
 package com.ibmpractica.spital.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +12,9 @@ import lombok.Setter;
 public class Pacient {
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pacient_id")
-    private String pacientID;
+    private Integer pacientID;
 
     @NotNull
     @Column(name = "first_name")

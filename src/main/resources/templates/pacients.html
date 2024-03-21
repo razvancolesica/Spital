@@ -53,7 +53,7 @@
             <!-- Celulă pentru butoanele de edit și delete -->
             <td>
                 <!-- Butonul de edit -->
-                <form th:action="@{/editPacient}" method="get">
+                <form th:action="@{/showEditPacient}" method="get">
                     <input type="hidden" name="id" th:value="${pacient.pacientID}" />
                     <button type="submit" class="button edit-button">Edit</button>
                 </form>

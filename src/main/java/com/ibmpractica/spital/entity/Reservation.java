@@ -20,7 +20,13 @@ public class Reservation {
 
     @NotNull
     @Column(name = "pacient_id")
-    private String pacientID;
+    private Integer pacientID;
+    @NotNull
+    @Column(name = "first_name")
+    private String firstName;
+    @NotNull
+    @Column(name = "last_name")
+    private String lastName;
     @NotNull
     @Column(name = "reservation_date")
     private LocalDateTime reservationDate;

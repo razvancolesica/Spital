@@ -49,10 +49,24 @@
   <h2 class="h2-title">Adaugă Rezervare</h2>
 
   <form class="form-container" th:action="@{/addReservation}" th:object="${reservation}" method="post">
-    <input type="text" placeholder="pacientID" th:field="*{pacientID}"><br>
+    <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
+    <p class="error-message" th:if="${#fields.hasErrors('pacientID')}" th:errors="*{pacientID}"></p>
+
+    <input type="text" placeholder="firstName" th:field="*{firstName}"><br>
+    <p class="error-message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+
+    <input type="text" placeholder="lastName" th:field="*{lastName}"><br>
+    <p class="error-message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+
     <input type="datetime-local" placeholder="reservationDate" th:field="*{reservationDate}"><br>
+    <p class="error-message" th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}"></p>
+
     <input type="text" placeholder="specialization" th:field="*{specialization}"><br>
+    <p class="error-message" th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}"></p>
+
     <input type="text" placeholder="medic" th:field="*{medic}"><br><br>
+    <p class="error-message" th:if="${#fields.hasErrors('medic')}" th:errors="*{medic}"></p>
+
     <button type="submit" class="button">Salvează</button>
   </form>
 

@@ -53,15 +53,15 @@ public class ReservationController {
 
     //Adaugare rezervare
     @PostMapping("/addReservation")
-    public String addReservation(@Valid @ModelAttribute("reservation") ReservationDTO reservation, Model model, BindingResult bindingResult) {
+    public String addReservation(@Valid @ModelAttribute("reservation") ReservationDTO reservation, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            // Returnarea paginii cu mesajele de eroare afișate
-            return "addReservation";
+            return "addReservation"; // Rămâne pe pagina de adăugare a rezervării
         }
+
         ReservationDTO addedReservation = service.addReservation(reservation);
         if (addedReservation == null) {
-            model.addAttribute("errorMessage", "This pacient does not exist! Please review the pacient's name.");
-            return "addReservation";
+            model.addAttribute("errorMessage", "This pacient does not exist!");
+            return "addReservation"; // Rămâne pe pagina de adăugare a rezervării
         }
         return "redirect:/reservations";
     }

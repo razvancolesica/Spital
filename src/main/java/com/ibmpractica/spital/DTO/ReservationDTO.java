@@ -1,5 +1,6 @@
 package com.ibmpractica.spital.DTO;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,16 +17,22 @@ import java.time.LocalDateTime;
 public class ReservationDTO {
 
     private Integer id;
+
     @NotNull(message = "Pacient ID cannot be null")
     private Integer pacientID;
+
     @NotBlank(message = "First name cannot be blank")
     private String firstName;
+
     @NotBlank(message = "Last name cannot be blank")
     private String lastName;
-    @NotNull(message = "Reservation date cannot be null")
+
+    @Future(message = "Reservation date must be in the future")
     private LocalDateTime reservationDate;
+
     @NotBlank(message = "Specialization cannot be blank")
     private String specialization;
+
     @NotBlank(message = "Medic cannot be blank")
     private String medic;
 }

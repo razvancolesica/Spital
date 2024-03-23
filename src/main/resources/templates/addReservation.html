@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adaugă Rezervare</title>
+  <title>Add Reservation</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 
   <style>
         /* Stilizare formulare */
         .form-container {
             max-width: 400px; /* Lățimea maximă a containerului de formular */
-            margin: 0 auto; /* Centrare pe pagină */
+            margin-inline: auto;
+            margin-top: 100px;
             padding: 20px;
             background-color: #f2f2f2; /* Culoarea fundalului formularului */
             border-radius: 5px; /* Bordură rotunjită */
@@ -46,23 +47,29 @@
 </head>
 <body>
 
-  <h2 class="h2-title">Adaugă Rezervare</h2>
+
 
   <form class="form-container" th:action="@{/addReservation}" th:object="${reservation}" method="post">
+    <h2 class="h2-title">Add Reservation</h2>
     <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
+
     <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></p>
-    <input type="text" placeholder="firstName" th:field="*{firstName}"><br>
+    <input type="text" placeholder="First Name" th:field="*{firstName}"><br>
+
     <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></p>
-    <input type="text" placeholder="lastName" th:field="*{lastName}"><br>
+    <input type="text" placeholder="Last Name" th:field="*{lastName}"><br>
+
     <p th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}" style="color: red"></p>
-    <input type="datetime-local" placeholder="reservationDate" th:field="*{reservationDate}"><br>
+    <input type="datetime-local" placeholder="Reservation Date" th:field="*{reservationDate}"><br>
+
     <p th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}" style="color: red"></p>
-    <input type="text" placeholder="specialization" th:field="*{specialization}"><br>
+    <input type="text" placeholder="Specialization" th:field="*{specialization}"><br>
+
     <p th:if="${#fields.hasErrors('medic')}" th:errors="*{medic}" style="color: red"></p>
-    <input type="text" placeholder="medic" th:field="*{medic}"><br><br>
+    <input type="text" placeholder="Medic" th:field="*{medic}"><br><br>
 
     <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
-    <button type="submit" class="button">Salvează</button>
+    <button type="submit" class="button">Save</button>
   </form>
 
 </body>

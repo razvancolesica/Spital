@@ -82,10 +82,6 @@ public class ReservationController {
             bindingResult.rejectValue("medic", "error.medic", "Medic cannot be empty");
         }
 
-        if (bindingResult.hasErrors()) {
-            return "addReservation"; // Rămâne pe pagina de adăugare a rezervării
-        }
-
         ReservationDTO addedReservation = service.addReservation(reservation);
         if (addedReservation == null) {
             model.addAttribute("errorMessage", "This patient does not exist!");

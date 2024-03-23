@@ -41,9 +41,17 @@ public class PacientService {
     public PacientDTO addPacient(PacientDTO pacientDTO)
     {
         log.info("ReservationService.addPacient(Pacient pacient) adding pacient...");
-        Pacient pacient = mapper.map(pacientDTO, Pacient.class);
-        pacientRepository.save(pacient);
-        return mapper.map(pacient, PacientDTO.class);
+        Pacient newPacient = mapper.map(pacientDTO, Pacient.class);
+        List<PacientDTO> pacients = getAllPacients();
+        for(PacientDTO pacient : pacients)
+        {
+            if(pacient.getFirstName().equals(newPacient.getFirstName()) && pacient.getLastName().equals(newPacient.getLastName()))
+            {
+                return null;
+            }
+        }
+        pacientRepository.save(newPacient);
+        return mapper.map(newPacient, PacientDTO.class);
     }
 
 

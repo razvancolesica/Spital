@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editare Rezervare</title>
+    <title>Edit Reservation</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 
     <style>
         /* Stilizare formulare */
         .form-container {
             max-width: 400px; /* Lățimea maximă a containerului de formular */
-            margin: 0 auto; /* Centrare pe pagină */
+            margin-inline: auto;
+            margin-top: 100px;
             padding: 20px;
             background-color: #f2f2f2; /* Culoarea fundalului formularului */
             border-radius: 5px; /* Bordură rotunjită */
@@ -46,9 +47,10 @@
 </head>
 <body>
 
-<h2 class="h2-title">Editează Rezervare</h2>
+
 
 <form class="form-container" th:action="@{/editReservation}" th:object="${reservation}" method="post">
+    <h2 class="h2-title">Edit Reservation</h2>
     <input type="hidden" name="reservationID" th:value="${reservation.id}" /> <!-- Adăugăm un câmp ascuns pentru ID-ul rezervării -->
     <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
     <input type="text" placeholder="firstName" th:field="*{firstName}"><br>
@@ -56,7 +58,7 @@
     <input type="datetime-local" placeholder="reservationDate" th:field="*{reservationDate}"><br>
     <input type="text" placeholder="specialization" th:field="*{specialization}"><br>
     <input type="text" placeholder="medic" th:field="*{medic}"><br><br>
-    <button type="submit" class="button">Salvează</button>
+    <button type="submit" class="button">Save</button>
 </form>
 
 

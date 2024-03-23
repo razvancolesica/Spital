@@ -26,24 +26,24 @@
 </header>
 
 <main>
-  <h2 class="h2-title">Rezervări disponibile:</h2>
+  <h2 class="h2-title">Registered Reservations</h2>
 
   <!-- Tabel pentru afișarea rezervărilor -->
   <table class="table-container">
     <thead>
     <tr>
-      <th>ID Rezervare</th>
-      <th>ID Pacient</th>
-      <th>Data și oră rezervare</th>
-      <th>Specializare</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Date & Time</th>
+      <th>Specialization</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
     <!-- Iterăm prin lista de rezervări și afișăm fiecare rezervare într-un rând de tabel -->
     <tr th:each="reservation : ${reservations}">
-      <td th:text="${reservation.id}"></td>
-      <td th:text="${reservation.pacientID}"></td>
+      <td th:text="${reservation.firstName}"></td>
+      <td th:text="${reservation.lastName}"></td>
       <td th:text="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
       <td th:text="${reservation.specialization}"></td>
       <!-- Celulă pentru butoanele de edit și delete -->
@@ -54,14 +54,14 @@
           <button type="submit" class="button edit-button">Edit</button>
         </form>
         <!-- Butonul de delete -->
-        <form th:action="@{/deleteReservation}" method="post" onsubmit="return confirm('Ești sigur că vrei să ștergi această rezervare?');">
+        <form th:action="@{/deleteReservation}" method="post" onsubmit="return confirm('Are you sure you want to delete this reservation?');">
           <input type="hidden" name="id" th:value="${reservation.id}" />
           <button type="submit">Delete</button>
         </form>
       </td>
     </tr>
     <tr>
-        <td colspan="5" th:if="${#lists.isEmpty(reservations)}">Nu există rezervări disponibile</td>
+        <td colspan="5" th:if="${#lists.isEmpty(reservations)}">There are no reservations!</td>
     </tr>
     </tbody>
   </table>

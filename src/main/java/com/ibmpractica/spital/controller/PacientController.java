@@ -2,10 +2,12 @@ package com.ibmpractica.spital.controller;
 import com.ibmpractica.spital.DTO.PacientDTO;
 import com.ibmpractica.spital.service.PacientService;
 import com.ibmpractica.spital.service.ReservationService;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,8 +37,38 @@ public class PacientController {
 
     //Adaugare pacient
     @PostMapping("/addPacient")
-    public String addPacient(@ModelAttribute("pacient") PacientDTO pacient){
-        service.addPacient(pacient);
+    public String addPacient(@Valid @ModelAttribute("pacient") PacientDTO pacient, BindingResult bindingResult, Model model){
+        if(pacient.getFirstName().isEmpty()){
+            bindingResult.rejectValue("firstName", "error.firstName", "First name cannot be empty");
+        }
+
+        if(pacient.getLastName().isEmpty()){
+            bindingResult.rejectValue("lastName", "error.lastName", "Last name cannot be empty");
+        }
+
+        if(pacient.getAge() == 0){
+            bindingResult.rejectValue("age", "error.age", "Age cannot be empty");
+        }
+
+        if(pacient.getCnp().isEmpty())
+        {
+            bindingResult.rejectValue("cnp", "error.cnp", "CNP cannot be empty");
+        }
+
+        if(pacient.getIssue().isEmpty())
+        {
+            bindingResult.rejectValue("issue", "error.issue", "Issue cannot be empty");
+        }
+
+        if(bindingResult.hasErrors()){
+            return "addPacient";
+        }
+
+        PacientDTO addedPacient = service.addPacient(pacient);
+        if (addedPacient == null) {
+            model.addAttribute("errorMessage", "Pacientul există deja!");
+            return "addPacient";
+        }
         return "redirect:/pacients";
     }
 

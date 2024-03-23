@@ -17,22 +17,10 @@ import java.time.LocalDateTime;
 public class ReservationDTO {
 
     private Integer id;
-
-    @NotNull(message = "Pacient ID cannot be null")
     private Integer pacientID;
-
-    @NotBlank(message = "First name cannot be blank")
     private String firstName;
-
-    @NotBlank(message = "Last name cannot be blank")
     private String lastName;
-
-    @Future(message = "Reservation date must be in the future")
     private LocalDateTime reservationDate;
-
-    @NotBlank(message = "Specialization cannot be blank")
     private String specialization;
-
-    @NotBlank(message = "Medic cannot be blank")
     private String medic;
 }

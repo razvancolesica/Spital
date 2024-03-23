@@ -74,24 +74,32 @@ public class ReservationService {
 
 
     //Editeaza rezervare
-    public void editReservation(String reservationID, Reservation r)
+    public ReservationDTO editReservation(Integer reservationID, ReservationDTO updatedRezervationDTO)
     {
-        log.info("ReservationService.editReservation(String reservationID, Reservation r) editing reservation...");
-        List<Reservation> list = reservationRepository.findAll();
-        for(Reservation reservation : list)
-        {
-            if(reservation.getId().equals(reservationID))
-            {
-                reservation.setReservationDate(r.getReservationDate());
-                reservation.setSpecialization(r.getSpecialization());
-                reservation.setMedic(r.getMedic());
-            }
+        log.info("ReservationService.editReservation(Integer reservationID, ReservationDTO updatedRezervationDTO) editing reservation...");
+        Optional<Reservation> reservationOptional = reservationRepository.findById(String.valueOf(reservationID));
+        if (reservationOptional.isPresent()) {
+            Reservation reservation = reservationOptional.get();
+
+            // Actualizăm valorile rezervării cu cele primite
+            reservation.setFirstName(updatedRezervationDTO.getFirstName());
+            reservation.setLastName(updatedRezervationDTO.getLastName());
+            reservation.setSpecialization(updatedRezervationDTO.getSpecialization());
+            reservation.setReservationDate(updatedRezervationDTO.getReservationDate());
+            reservation.setMedic(updatedRezervationDTO.getMedic());
+
+            // Salvăm rezervarea actualizată
             reservationRepository.save(reservation);
+
+            return mapper.map(reservation, ReservationDTO.class);
+        } else {
+            log.error("Reservation with ID " + reservationID + " not found.");
+            return null;
         }
     }
 
 
-    //Afiseaza rezervarea dupa ID-ul rezervarii.
+   /* //Afiseaza rezervarea dupa ID-ul rezervarii.
     public List<Reservation> getReservation(String reservationID) {
         log.info("ReservationService.getReservation() retrieving all reservations...");
         return reservationRepository.findAll().stream()
@@ -106,4 +114,11 @@ public class ReservationService {
                 .filter(r -> r.getPacientID().equals(pacientID)).collect(Collectors.toList());
     }
 
+    */
+
+    public Optional<ReservationDTO> getReservationById(Integer id) {
+        log.info("ReservationService.getReservationById(Integer id) retrieving reservation by ID...");
+        Optional<Reservation> reservationOptional = reservationRepository.findById(String.valueOf(id));
+        return reservationOptional.map(r -> mapper.map(r, ReservationDTO.class));
+    }
 }

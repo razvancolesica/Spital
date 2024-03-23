@@ -83,9 +83,8 @@ public class PacientService {
 
             return mapper.map(pacient, PacientDTO.class);
         } else {
-            // În cazul în care pacientul nu a fost găsit, putem arunca o excepție sau puteți decide cum doriți să tratați această situație.
             log.error("Pacient with ID " + pacientID + " not found.");
-            return null; // Sau aruncăm o excepție sau returnăm null sau un obiect special care indică lipsa pacientului.
+            return null;
         }
     }
 

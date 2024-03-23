@@ -49,7 +49,8 @@
       <!-- Celulă pentru butoanele de edit și delete -->
       <td>
         <!-- Butonul de edit -->
-        <form th:action="@{'/editReservation?id=' + ${reservation.id}}" method="post">
+        <form th:action="@{/showEditReservation}" method="get">
+          <input type="hidden" name="id" th:value="${reservation.id}" />
           <button type="submit" class="button edit-button">Edit</button>
         </form>
         <!-- Butonul de delete -->

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editare Rezervare</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+    <style>
+        /* Stilizare formulare */
+        .form-container {
+            max-width: 400px; /* Lățimea maximă a containerului de formular */
+            margin: 0 auto; /* Centrare pe pagină */
+            padding: 20px;
+            background-color: #f2f2f2; /* Culoarea fundalului formularului */
+            border-radius: 5px; /* Bordură rotunjită */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Umbră sub formular */
+        }
+
+        /* Stilizare etichete input */
+        .form-container input {
+            width: 100%; /* Lățimea inputului */
+            padding: 10px; /* Spațiul în jurul inputului */
+            margin: 10px 0; /* Spațiul între inputuri */
+            border: 1px solid #ccc; /* Bordură simplă */
+            border-radius: 5px; /* Bordură rotunjită */
+            box-sizing: border-box; /* Dimensiunea totală a elementului include și paddingul și border-ul */
+        }
+
+        /* Stilizare buton de submit */
+        .form-container button[type="submit"] {
+            width: 100%; /* Lățimea butonului */
+            background-color: #333; /* Culoarea de fundal */
+            color: #fff; /* Culoarea textului */
+            padding: 10px; /* Spațiul în jurul textului butonului */
+            border: none; /* Fără bordură */
+            border-radius: 5px; /* Bordură rotunjită */
+            cursor: pointer; /* Cursor pointer la hover */
+        }
+
+        /* Stilizare buton de submit la hover */
+        .form-container button[type="submit"]:hover {
+            background-color: #555; /* Culoarea de fundal la hover */
+        }
+    </style>
+</head>
+<body>
+
+<h2 class="h2-title">Editează Rezervare</h2>
+
+<form class="form-container" th:action="@{/editReservation}" th:object="${reservation}" method="post">
+    <input type="hidden" name="reservationID" th:value="${reservation.id}" /> <!-- Adăugăm un câmp ascuns pentru ID-ul rezervării -->
+    <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
+    <input type="text" placeholder="firstName" th:field="*{firstName}"><br>
+    <input type="text" placeholder="lastName" th:field="*{lastName}"><br>
+    <input type="datetime-local" placeholder="reservationDate" th:field="*{reservationDate}"><br>
+    <input type="text" placeholder="specialization" th:field="*{specialization}"><br>
+    <input type="text" placeholder="medic" th:field="*{medic}"><br><br>
+    <button type="submit" class="button">Salvează</button>
+</form>
+
+
+</body>
+</html>

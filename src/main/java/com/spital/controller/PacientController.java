@@ -1,7 +1,7 @@
-package com.ibmpractica.spital.controller;
-import com.ibmpractica.spital.DTO.PacientDTO;
-import com.ibmpractica.spital.service.PacientService;
-import com.ibmpractica.spital.service.ReservationService;
+package com.spital.controller;
+import com.spital.DTO.PacientDTO;
+import com.spital.service.PacientService;
+import com.spital.service.ReservationService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

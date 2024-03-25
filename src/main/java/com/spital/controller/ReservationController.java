@@ -1,18 +1,12 @@
-package com.ibmpractica.spital.controller;
-import com.ibmpractica.spital.DTO.PacientDTO;
-import com.ibmpractica.spital.DTO.ReservationDTO;
-import com.ibmpractica.spital.entity.Reservation;
-import com.ibmpractica.spital.service.PacientService;
-import com.ibmpractica.spital.service.ReservationService;
-import jakarta.validation.Valid;
+package com.spital.controller;
+import com.spital.DTO.ReservationDTO;
+import com.spital.service.PacientService;
+import com.spital.service.ReservationService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

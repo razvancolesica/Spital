@@ -1,6 +1,6 @@
-package com.ibmpractica.spital.repository;
+package com.spital.repository;
 
-import com.ibmpractica.spital.entity.Reservation;
+import com.spital.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

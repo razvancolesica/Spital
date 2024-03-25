@@ -1,4 +1,4 @@
-package com.ibmpractica.spital.DTO;
+package com.spital.DTO;
 
 import lombok.*;
 

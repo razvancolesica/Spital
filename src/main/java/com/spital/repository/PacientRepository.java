@@ -1,7 +1,6 @@
-package com.ibmpractica.spital.repository;
+package com.spital.repository;
 
-import com.ibmpractica.spital.entity.Pacient;
-import lombok.Data;
+import com.spital.entity.Pacient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

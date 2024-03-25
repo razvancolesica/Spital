@@ -1,4 +1,4 @@
-package com.ibmpractica.spital.DTO;
+package com.spital.DTO;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;

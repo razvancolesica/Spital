@@ -1,10 +1,10 @@
-package com.ibmpractica.spital.service;
-import com.ibmpractica.spital.DTO.PacientDTO;
-import com.ibmpractica.spital.DTO.ReservationDTO;
-import com.ibmpractica.spital.entity.Pacient;
-import com.ibmpractica.spital.entity.Reservation;
-import com.ibmpractica.spital.repository.PacientRepository;
-import com.ibmpractica.spital.repository.ReservationRepository;
+package com.spital.service;
+import com.spital.DTO.PacientDTO;
+import com.spital.DTO.ReservationDTO;
+import com.spital.entity.Pacient;
+import com.spital.entity.Reservation;
+import com.spital.repository.PacientRepository;
+import com.spital.repository.ReservationRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

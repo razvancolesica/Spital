@@ -1,26 +1,21 @@
-package com.ibmpractica.spital.entity;
+package com.spital.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-@Setter
 @Getter
+@Setter
 @Entity
-@Table(name = "reservation")
-public class Reservation {
+@Table(name = "pacient")
+public class Pacient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id")
-    private Integer id;
-
-    @NotNull
     @Column(name = "pacient_id")
     private Integer pacientID;
+
     @NotNull
     @Column(name = "first_name")
     private String firstName;
@@ -28,13 +23,13 @@ public class Reservation {
     @Column(name = "last_name")
     private String lastName;
     @NotNull
-    @Column(name = "reservation_date")
-    private LocalDateTime reservationDate;
+    @Column(name = "age")
+    private int age;
     @NotNull
-    @Column(name = "specialization")
-    private String specialization;
+    @Column(name = "issue")
+    private String issue;
     @NotNull
-    @Column(name = "medic")
-    private String medic;
+    @Column(name = "CNP")
+    private String cnp;
 
 }

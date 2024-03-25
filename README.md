@@ -1,1 +1,1 @@
-# Spital_IBM_Practica
+# Spital

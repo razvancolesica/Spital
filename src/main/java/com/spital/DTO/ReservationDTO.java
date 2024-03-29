@@ -1,5 +1,6 @@
 package com.spital.DTO;
 
+import com.spital.entity.Specialization;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,5 @@ public class ReservationDTO {
     private String firstName;
     private String lastName;
     private LocalDateTime reservationDate;
-    private String specialization;
-    private String medic;
+    private Specialization specialization;
 }

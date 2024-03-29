@@ -86,7 +86,6 @@ public class ReservationService {
             reservation.setLastName(updatedRezervationDTO.getLastName());
             reservation.setSpecialization(updatedRezervationDTO.getSpecialization());
             reservation.setReservationDate(updatedRezervationDTO.getReservationDate());
-            reservation.setMedic(updatedRezervationDTO.getMedic());
 
             // Salvăm rezervarea actualizată
             reservationRepository.save(reservation);

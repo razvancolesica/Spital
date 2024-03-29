@@ -26,10 +26,12 @@ public class Pacient {
     @Column(name = "age")
     private int age;
     @NotNull
-    @Column(name = "issue")
-    private String issue;
-    @NotNull
     @Column(name = "CNP")
     private String cnp;
-
+    @NotNull
+    @Column(name = "email")
+    private String email;
+    @NotNull
+    @Column(name = "phone_number")
+    private String phoneNumber;
 }

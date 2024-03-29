@@ -13,5 +13,6 @@ public class PacientDTO {
     private String lastName;
     private int age;
     private String cnp;
-    private String issue;
+    private String email;
+    private String phoneNumber;
 }

@@ -55,9 +55,9 @@ public class PacientController {
             bindingResult.rejectValue("cnp", "error.cnp", "CNP cannot be empty");
         }
 
-        if(pacient.getIssue().isEmpty())
+        if(pacient.getPhoneNumber().isEmpty())
         {
-            bindingResult.rejectValue("issue", "error.issue", "Issue cannot be empty");
+            bindingResult.rejectValue("phoneNumber", "error.phoneNumber", "Phone number cannot be empty");
         }
 
         if(bindingResult.hasErrors()){

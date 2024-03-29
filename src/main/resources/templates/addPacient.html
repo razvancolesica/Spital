@@ -63,8 +63,10 @@
         <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" style="color: red"></p>
         <input type="text" placeholder="Age" th:field="*{age}"><br>
 
-        <p th:if="${#fields.hasErrors('issue')}" th:errors="*{issue}" style="color: red"></p>
-        <input type="text" placeholder="Issue" th:field="*{issue}"><br><br>
+        <input type="text" placeholder="Email" th:field="*{email}"><br>
+
+        <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></p>
+        <input type="text" placeholder="Phone Number" th:field="*{phoneNumber}"><br><br>
 
         <button type="submit" class="button">Save</button>
     </form>

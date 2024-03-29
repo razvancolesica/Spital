@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -32,9 +33,7 @@ public class Reservation {
     private LocalDateTime reservationDate;
     @NotNull
     @Column(name = "specialization")
-    private String specialization;
-    @NotNull
-    @Column(name = "medic")
-    private String medic;
+    @Autowired
+    Specialization specialization;
 
 }

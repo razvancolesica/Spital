@@ -63,10 +63,7 @@
     <input type="datetime-local" placeholder="Reservation Date" th:field="*{reservationDate}"><br>
 
     <p th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}" style="color: red"></p>
-    <input type="text" placeholder="Specialization" th:field="*{specialization}"><br>
-
-    <p th:if="${#fields.hasErrors('medic')}" th:errors="*{medic}" style="color: red"></p>
-    <input type="text" placeholder="Medic" th:field="*{medic}"><br><br>
+    <input type="text" placeholder="Specialization" th:field="*{specialization}"><br><br>
 
     <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
     <button type="submit" class="button">Save</button>

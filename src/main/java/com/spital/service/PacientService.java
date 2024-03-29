@@ -83,7 +83,8 @@ public class PacientService {
             pacient.setLastName(updatedPacientDTO.getLastName());
             pacient.setCnp(updatedPacientDTO.getCnp());
             pacient.setAge(updatedPacientDTO.getAge());
-            pacient.setIssue(updatedPacientDTO.getIssue());
+            pacient.setEmail(updatedPacientDTO.getEmail());
+            pacient.setPhoneNumber(updatedPacientDTO.getPhoneNumber());
 
             // Salvăm modificările în baza de date
             pacientRepository.save(pacient);

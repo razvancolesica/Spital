@@ -72,10 +72,6 @@ public class ReservationController {
             bindingResult.rejectValue("reservationDate", "error.reservationDate", "Reservation date cannot be empty");
         }
 
-        if (reservation.getMedic().isEmpty()) {
-            bindingResult.rejectValue("medic", "error.medic", "Medic cannot be empty");
-        }
-
         ReservationDTO addedReservation = service.addReservation(reservation);
         if (addedReservation == null) {
             model.addAttribute("errorMessage", "This patient does not exist!");

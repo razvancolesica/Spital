@@ -1,0 +1,36 @@
+/* Stilizare formulare */
+        .form-container {
+            max-width: 400px; /* Lățimea maximă a containerului de formular */
+            margin-inline: auto;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #f2f2f2; /* Culoarea fundalului formularului */
+            border-radius: 5px; /* Bordură rotunjită */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Umbră sub formular */
+        }
+
+        /* Stilizare etichete input */
+        .form-container input {
+            width: 100%; /* Lățimea inputului */
+            padding: 10px; /* Spațiul în jurul inputului */
+            margin: 10px 0; /* Spațiul între inputuri */
+            border: 1px solid #ccc; /* Bordură simplă */
+            border-radius: 5px; /* Bordură rotunjită */
+            box-sizing: border-box; /* Dimensiunea totală a elementului include și paddingul și border-ul */
+        }
+
+        /* Stilizare buton de submit */
+        .form-container button[type="submit"] {
+            width: 100%; /* Lățimea butonului */
+            background-color: #333; /* Culoarea de fundal */
+            color: #fff; /* Culoarea textului */
+            padding: 10px; /* Spațiul în jurul textului butonului */
+            border: none; /* Fără bordură */
+            border-radius: 5px; /* Bordură rotunjită */
+            cursor: pointer; /* Cursor pointer la hover */
+        }
+
+        /* Stilizare buton de submit la hover */
+        .form-container button[type="submit"]:hover {
+            background-color: #555; /* Culoarea de fundal la hover */
+        }

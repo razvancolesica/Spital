@@ -15,7 +15,6 @@
             <li><a href="pacients">Patients</a></li>
             <li><a href="showAddPacient">Add Patient</a></li>
             <li><a href="reservations">Reservations</a></li>
-            <li><a href="showAddReservation">Add Reservations</a></li>
             <!-- Butonul pentru pagina de Log In -->
             <div class="login-button">
                 <a href="login">Log In</a>
@@ -28,7 +27,6 @@
 <main>
     <h2 class="h2-title">Registered Patients</h2>
 
-    <!-- Tabel pentru afișarea rezervărilor -->
     <table class="table-container">
         <thead>
         <tr>
@@ -42,7 +40,7 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Iterăm prin lista de rezervări și afișăm fiecare rezervare într-un rând de tabel -->
+
         <tr th:each="pacient : ${pacients}">
             <td th:text="${pacient.firstName}"></td>
             <td th:text="${pacient.lastName}"></td>
@@ -50,7 +48,7 @@
             <td th:text="${pacient.age}"></td>
             <td th:text="${pacient.email}"></td>
             <td th:text="${pacient.phoneNumber}"></td>
-            <!-- Celulă pentru butoanele de edit și delete -->
+
             <td>
                 <!-- Butonul de edit -->
                 <form th:action="@{/showEditPacient}" method="get">

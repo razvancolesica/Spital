@@ -13,7 +13,6 @@
     <ul>
       <li><a href="specializations">Specializations</a></li>
       <li><a href="pacients">Pacients</a></li>
-      <li><a href="showAddPacient">Add Pacient</a></li>
       <li><a href="reservations">Reservations</a></li>
       <li><a href="showAddReservation">Add Reservations</a></li>
       <!-- Butonul pentru pagina de Log In -->
@@ -28,7 +27,6 @@
 <main>
   <h2 class="h2-title">Registered Reservations</h2>
 
-  <!-- Tabel pentru afișarea rezervărilor -->
   <table class="table-container">
     <thead>
     <tr>
@@ -40,13 +38,13 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Iterăm prin lista de rezervări și afișăm fiecare rezervare într-un rând de tabel -->
+
     <tr th:each="reservation : ${reservations}">
       <td th:text="${reservation.firstName}"></td>
       <td th:text="${reservation.lastName}"></td>
       <td th:text="${#temporals.format(reservation.reservationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
       <td th:text="${reservation.specialization}"></td>
-      <!-- Celulă pentru butoanele de edit și delete -->
+
       <td>
         <!-- Butonul de edit -->
         <form th:action="@{/showEditReservation}" method="get">

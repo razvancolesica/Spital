@@ -1,7 +1,9 @@
 package com.spital.controller;
 import com.spital.DTO.ReservationDTO;
+import com.spital.DTO.SpecializationDTO;
 import com.spital.service.PacientService;
 import com.spital.service.ReservationService;
+import com.spital.service.SpecializationService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class ReservationController {
     private ReservationService service;
     @Autowired
     private PacientService pacientService;
+    @Autowired
+    private SpecializationService specializationService;
 
     //Afiseaza toate rezervarile.
     @GetMapping("/reservations")
@@ -74,12 +78,11 @@ public class ReservationController {
 
         ReservationDTO addedReservation = service.addReservation(reservation);
         if (addedReservation == null) {
-            model.addAttribute("errorMessage", "This patient does not exist!");
+            model.addAttribute("errorMessage", "This patient/specialization does not exist!");
             return "addReservation"; // Rămâne pe pagina de adăugare a rezervării
         }
         return "redirect:/reservations";
     }
-
 
 
     @GetMapping("/showAddReservation")

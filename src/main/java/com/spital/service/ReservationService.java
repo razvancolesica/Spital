@@ -1,10 +1,13 @@
 package com.spital.service;
 import com.spital.DTO.PacientDTO;
 import com.spital.DTO.ReservationDTO;
+import com.spital.DTO.SpecializationDTO;
 import com.spital.entity.Pacient;
 import com.spital.entity.Reservation;
+import com.spital.entity.Specialization;
 import com.spital.repository.PacientRepository;
 import com.spital.repository.ReservationRepository;
+import com.spital.repository.SpecializationRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,8 @@ public class ReservationService {
     ReservationRepository reservationRepository;
     @Autowired
     PacientRepository pacientRepository;
+    @Autowired
+    SpecializationRepository specializationRepository;
 
     ModelMapper mapper = new ModelMapper();
 
@@ -41,13 +46,27 @@ public class ReservationService {
         return pacientOptional.map(p -> mapper.map(p, PacientDTO.class)).orElse(null);
     }
 
+    public SpecializationDTO getSpecializationByName(String specializationName) {
+        log.info("ReservationService.getSpecializationByName(String specializationName) retrieving specialization by name...");
+        Optional<Specialization> specializationOptional = specializationRepository.findBySpecializationName(specializationName);
+        return specializationOptional.map(s -> mapper.map(s, SpecializationDTO.class)).orElse(null);
+    }
+
     // Adaugă rezervare
     public ReservationDTO addReservation(ReservationDTO reservationDTO) {
         log.info("ReservationService.addReservation(ReservationDTO reservationDTO) adding reservation...");
 
+        SpecializationDTO specialization = getSpecializationByName(reservationDTO.getSpecialization());
+        if (specialization != null) {
+            // Setăm numele specializării în obiectul ReservationDTO
+            reservationDTO.setSpecialization(specialization.getSpecializationName());
+        } else {
+            // Dacă specializarea nu există, afișăm un mesaj de eroare și returnăm null
+            log.error("Specialization does not exist!");
+            return null;
+        }
         // Căutăm pacientul în funcție de nume
         PacientDTO pacient = getPacientByName(reservationDTO.getFirstName(), reservationDTO.getLastName());
-
         if (pacient != null) {
             // Dacă pacientul există, setăm id-ul rezervării conform acestuia
             reservationDTO.setPacientID(pacient.getPacientID());
@@ -60,11 +79,6 @@ public class ReservationService {
             return null;
         }
     }
-
-
-
-
-
 
     //Sterge rezervare
     public void deleteReservation(Integer reservationID) {
@@ -97,14 +111,7 @@ public class ReservationService {
         }
     }
 
-
-   /* //Afiseaza rezervarea dupa ID-ul rezervarii.
-    public List<Reservation> getReservation(String reservationID) {
-        log.info("ReservationService.getReservation() retrieving all reservations...");
-        return reservationRepository.findAll().stream()
-                .filter(r -> r.getId().equals(reservationID)).collect(Collectors.toList());
-    }
-
+    /*
 
     //Afiseaza rezervarea dupa ID-ul pacientului.
     public List<Reservation> getReservationForPacient(String pacientID) {

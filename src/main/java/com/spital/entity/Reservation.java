@@ -33,7 +33,6 @@ public class Reservation {
     private LocalDateTime reservationDate;
     @NotNull
     @Column(name = "specialization")
-    @Autowired
-    Specialization specialization;
+    String specialization;
 
 }

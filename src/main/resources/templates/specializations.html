@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +11,60 @@
 <header>
   <nav>
     <ul>
-      <li><a href="index">Acasă</a></li>
-      <li><a href="reservations">Rezervări</a></li>
-      <li><a href="specializations">Specializări</a></li>
-      <li><a href="about">Despre</a></li>
+      <li><a href="specializations">Specializations</a></li>
+      <li><a href="showAddSpecialization">Add Specialization</a></li>
+      <li><a href="pacients">Patients</a></li>
+      <li><a href="reservations">Reservations</a></li>
       <!-- Butonul pentru pagina de Log In -->
       <div class="login-button">
         <a href="login">Log In</a>
       </div>
     </ul>
+
   </nav>
 </header>
 
 <main>
-  <h1>Specializări disponibile:</h1>
-  <!-- Alte conținut specific paginii Specializări -->
+  <h2 class="h2-title">Specializations</h2>
+
+  <table class="table-container">
+    <thead>
+    <tr>
+      <th>Specialization ID</th>
+      <th>Specialization Name</th>
+      <th>Medic</th>
+      <th>Room</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="specialization : ${specializations}">
+      <td th:text="${specialization.specializationID}"></td>
+      <td th:text="${specialization.specializationName}"></td>
+      <td th:text="${specialization.medic}"></td>
+      <td th:text="${specialization.room}"></td>
+
+        <td>
+
+        <form th:action="@{/showEditSpecialization}" method="get">
+          <input type="hidden" name="id" th:value="${specialization.specializationID}" />
+          <button type="submit" class="button edit-button">Edit</button>
+        </form>
+
+        <form th:action="@{/deleteSpecialization}" method="post" onsubmit="return confirm('Are you sure you want to delete this specialization?');">
+          <input type="hidden" name="specializationID" th:value="${specialization.specializationID}" />
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5" th:if="${#lists.isEmpty(specializations)}">There are no specializations!</td>
+    </tr>
+    </tbody>
+  </table>
 </main>
+
 
 </body>
 </html>

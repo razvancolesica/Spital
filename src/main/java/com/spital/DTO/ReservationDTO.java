@@ -23,4 +23,5 @@ public class ReservationDTO {
     private String lastName;
     private LocalDateTime reservationDate;
     private String specialization;
+    private String issue;
 }

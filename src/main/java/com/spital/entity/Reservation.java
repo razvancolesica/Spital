@@ -34,5 +34,8 @@ public class Reservation {
     @NotNull
     @Column(name = "specialization")
     String specialization;
+    @NotNull
+    @Column(name = "issue")
+    String issue;
 
 }

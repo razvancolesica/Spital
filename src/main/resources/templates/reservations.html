@@ -11,7 +11,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="top-bar">
+  <div class="user-button">
+    <button class="user-btn">
+      <img src="user-avatar.jpg" alt="User Avatar">
+      <div class="user-info">
+        <span class="user-name">Frederick Coleman</span>
+        <span class="user-role">Admin</span>
+      </div>
+      <i class="fas fa-chevron-down"  onclick="toggleDropdown()"></i>
+    </button>
+    <div class="dropdown-content" id="dropdown-content">
+      <a href="#">My Profile</a>
+      <a href="#">Log Out</a>
+    </div>
+  </div>
+</div>
 
+<div class="all-content">
 <header>
   <div class="sidebar">
     <div class="logo-container">
@@ -26,13 +43,9 @@
       </ul>
     </nav>
   </div>
-  <!-- Butonul pentru pagina de Log In -->
-  <div class="login-button">
-    <a href="login">Log In</a>
-  </div>
 </header>
 
-
+<div class="main-content">
 <main>
 
   <table class="table-container">
@@ -74,7 +87,27 @@
     </tbody>
   </table>
 </main>
+</div>
+</div>
 
+<script>
+function toggleDropdown() {
+  document.getElementById("dropdown-content").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.user-btn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 
 </body>
 </html>

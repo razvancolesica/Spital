@@ -1,34 +1,117 @@
-/* Stiluri comune */
-
 * {
     font-family: "Poppins", sans-serif;
 }
 
+.all-content{
+    display: flex;
+}
+
+.main-content{
+    flex:1;
+}
+
 body {
-    margin: 0;
     padding: 0;
     background-image: url('/images/background-image.jpg');
     background-repeat: repeat;
     background-size: 150px 150px;
-    margin-left: 275px;
+    margin-left:200px;
 }
 
+.top-bar {
+  background-color: #333;
+  height: 50px;
+  width: 100%; /* Latimea body-ului minus latimea sidebar-ului */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Asezare buton user in dreapta */
+  padding: 0 20px;
+}
+
+.user-button {
+  position: relative;
+  margin-right: 30px;
+}
+
+.user-btn {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user-btn img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 12px;
+}
+
+.fa-chevron-down {
+  margin-left: auto;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 180px; /* Setează lățimea maximă a meniului dropdown */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 41px; /* Poziționează meniul dropdown sub top-bar */
+  right: 0; /* Poziționează meniul dropdown în partea dreaptă */
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+
+
 .sidebar {
-  width: 200px; /* Lățimea sidebar-ului */
-  height: 100%; /* Înălțimea sidebar-ului */
-  position: fixed; /* Fixăm sidebar-ul pentru a rămâne vizibil chiar și când derulăm pagina */
-  top: 0; /* Îl plasăm în partea de sus a ecranului */
-  left: 0; /* Îl plasăm în partea stângă a ecranului */
-  background-color: #410544; /* Culoarea de fundal a sidebar-ului */
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #410544;
 }
 
 .logo-container {
-  padding: 20px; /* Adăugăm un spațiu în jurul logo-ului */
-  text-align: center; /* Centrăm imaginea */
+  padding: 20px;
+  text-align: center;
 }
 
 .logo-container img {
-  max-width: 100%; /* Asigurăm că imaginea nu depășește lățimea maximă a containerului */
+  max-width: 100%;
 }
 
 
@@ -38,14 +121,14 @@ nav ul {
 }
 
 nav ul li {
-  margin: 10px 0; /* Spațiu între elementele listei */
+  margin: 10px 0;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  padding: 10px 15px; /* Spațiul în jurul textului */
-  display: block; /* Facem elementele listei blocuri pentru a ocupa întreaga lățime a sidebar-ului */
+  padding: 10px 15px;
+  display: block;
 }
 
 nav ul li a:hover {
@@ -68,8 +151,8 @@ nav ul li a:hover {
 
 .login-button a:hover {
     background-color: #512453;
-     height: 100%; /* Înălțimea întregului meniu de navigare */
-    padding: 21px 15px 21px 15px; /* Poți ajusta spațiul în jurul textului butonului */
+     height: 100%;
+    padding: 21px 15px 21px 15px;
     box-sizing: border-box;
 }
 
@@ -82,16 +165,16 @@ nav ul li a:hover {
 
 .title-container h2 {
   margin: 0;
-  color:  #410544; /* culoarea textului */
-  font-size: 24px; /* dimensiunea fontului */
+  color:  #410544;
+  font-size: 24px;
 }
 
 
 /* Stilizare tabel */
 .table-container {
   border-collapse: collapse;
-  width: 80%; /* Lățimea tabelului */
-  margin: 50px auto; /* Centrare pe pagină */
+  width: 80%;
+  margin: 50px auto;
 }
 
 /* Stilizare cap tabel */
@@ -148,16 +231,17 @@ button:hover {
 }
 */
 
+/*
 .add-button {
-    width: 100px; /* Lățimea butonului */
-    height: 50px; /* Înălțimea butonului */
-    background-color: #333; /* Culoarea de fundal */
-    color: #fff; /* Culoarea textului */
-    border: none; /* Fără bordură */
-    cursor: pointer; /* Cursor pointer la hover */
+    width: 100px;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
     text-align: center;
     position: center;
-}
+} */
 
 .actions-container {
   display: flex;
@@ -165,20 +249,20 @@ button:hover {
 }
 
 .edit-button, .delete-button {
-  width: 80px; /* Lățimea butonului */
-  height: 30px; /* Înălțimea butonului */
-  color: #fff; /* Culoarea textului */
-  border: none; /* Fără bordură */
-  cursor: pointer; /* Cursor pointer la hover */
-  display: inline-flex; /* Afișează iconița și textul pe aceeași linie */
-  align-items: center; /* Aliniază vertical iconița și textul */
-  justify-content: center; /* Aliniază orizontal iconița și textul */
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 10px;
   border-radius: 5px;
 }
 
 .edit-button i, .delete-button i {
-  margin-right: 5px; /* Spațiul între iconiță și text */
+  margin-right: 5px;
 }
 
 .edit-button:hover

@@ -1,0 +1,199 @@
+/* Stiluri comune */
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/background-image.jpg');
+    background-repeat: repeat;
+    background-size: 150px 150px;
+    margin-left: 275px;
+}
+
+.sidebar {
+  width: 200px; /* Lățimea sidebar-ului */
+  height: 100%; /* Înălțimea sidebar-ului */
+  position: fixed; /* Fixăm sidebar-ul pentru a rămâne vizibil chiar și când derulăm pagina */
+  top: 0; /* Îl plasăm în partea de sus a ecranului */
+  left: 0; /* Îl plasăm în partea stângă a ecranului */
+  background-color: #410544; /* Culoarea de fundal a sidebar-ului */
+}
+
+.logo-container {
+  padding: 20px; /* Adăugăm un spațiu în jurul logo-ului */
+  text-align: center; /* Centrăm imaginea */
+}
+
+.logo-container img {
+  max-width: 100%; /* Asigurăm că imaginea nu depășește lățimea maximă a containerului */
+}
+
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 10px 0; /* Spațiu între elementele listei */
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px; /* Spațiul în jurul textului */
+  display: block; /* Facem elementele listei blocuri pentru a ocupa întreaga lățime a sidebar-ului */
+}
+
+nav ul li a:hover {
+  background-color: #512453;
+}
+
+
+/* Stilul butonului pentru Log In */
+.login-button {
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.login-button a {
+    color: #fff;
+    text-decoration: none;
+    padding: 21px 15px 21px 15px;
+}
+
+.login-button a:hover {
+    background-color: #512453;
+     height: 100%; /* Înălțimea întregului meniu de navigare */
+    padding: 21px 15px 21px 15px; /* Poți ajusta spațiul în jurul textului butonului */
+    box-sizing: border-box;
+}
+
+.title-container {
+  background-color: rgba(242, 242, 242, 0.5);
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.title-container h2 {
+  margin: 0;
+  color:  #410544; /* culoarea textului */
+  font-size: 24px; /* dimensiunea fontului */
+}
+
+
+/* Stilizare tabel */
+.table-container {
+  border-collapse: collapse;
+  width: 80%; /* Lățimea tabelului */
+  margin: 50px auto; /* Centrare pe pagină */
+}
+
+/* Stilizare cap tabel */
+.table-container thead {
+  background-color: #333 !important;
+  color: #fff;
+}
+
+/* Stilizare celule cap tabel */
+.table-container th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #410544;
+}
+
+.table-container tr{
+    background-color: #fff;
+    height: 55px;
+}
+
+
+
+/* Stilizare alternativă pentru rândurile tabelului */
+.table-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.h2-title {
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    margin: auto;
+    color: #333;
+}
+
+
+/* Stilizare butoane */
+/* button {
+    width: 80px;
+    height: 30px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+} */
+
+/*
+button:hover {
+    background-color: #555;
+}
+*/
+
+.add-button {
+    width: 100px; /* Lățimea butonului */
+    height: 50px; /* Înălțimea butonului */
+    background-color: #333; /* Culoarea de fundal */
+    color: #fff; /* Culoarea textului */
+    border: none; /* Fără bordură */
+    cursor: pointer; /* Cursor pointer la hover */
+    text-align: center;
+    position: center;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-button, .delete-button {
+  width: 80px; /* Lățimea butonului */
+  height: 30px; /* Înălțimea butonului */
+  color: #fff; /* Culoarea textului */
+  border: none; /* Fără bordură */
+  cursor: pointer; /* Cursor pointer la hover */
+  display: inline-flex; /* Afișează iconița și textul pe aceeași linie */
+  align-items: center; /* Aliniază vertical iconița și textul */
+  justify-content: center; /* Aliniază orizontal iconița și textul */
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.edit-button i, .delete-button i {
+  margin-right: 5px; /* Spațiul între iconiță și text */
+}
+
+.edit-button:hover
+{
+    background-color:#44B04F;
+}
+
+.delete-button:hover {
+  background-color: #EC4343;
+}
+
+.delete-button{
+    background-color:#EE0A0A;
+}
+
+.edit-button{
+  background-color:#0AAB1C;
+}

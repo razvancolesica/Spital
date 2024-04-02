@@ -5,10 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Reservation</title>
   <link rel="stylesheet" th:href="@{/style.css}">
-  <link rel="stylesheet" th:href="@{/formStyle.css}">
+  <link rel="stylesheet" th:href="@{/addReservationFormStyle.css}">
+
+  <script>
+    function limitTextarea(element) {
+      var maxChars = 300;
+      var charCount = element.value.length;
+      if (charCount > maxChars) {
+        element.value = element.value.substring(0, maxChars);
+        charCount = maxChars;
+      }
+      document.getElementById('charCount').innerText = charCount + '/' + maxChars + ' characters';
+    }
+  </script>
 </head>
 <body>
 
+<div class="container">
   <form class="form-container" th:action="@{/addReservation}" th:object="${reservation}" method="post">
     <h2 class="h2-title">Add Reservation</h2>
     <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
@@ -26,11 +39,13 @@
     <input type="text" placeholder="Specialization" th:field="*{specialization}"><br>
 
     <p th:if="${#fields.hasErrors('issue')}" th:errors="*{issue}" style="color: red"></p>
-    <textarea placeholder="Issue" th:field="*{issue}"></textarea><br><br>
+    <textarea oninput="limitTextarea(this)" rows="5" cols="50" placeholder="Issue" th:field="*{issue}"></textarea><br>
+    <span id="charCount">0/300 characters</span><br><br>
 
     <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>
     <button type="submit" class="button">Save</button>
   </form>
+</div>
 
 </body>
 </html>

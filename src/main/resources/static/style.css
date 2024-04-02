@@ -86,19 +86,20 @@ nav ul li a:hover {
 
 
 /* Stilizare butoane */
-button {
-    width: 80px; /* Lățimea butonului */
-    height: 30px; /* Înălțimea butonului */
-    background-color: #333; /* Culoarea de fundal */
-    color: #fff; /* Culoarea textului */
-    border: none; /* Fără bordură */
-    cursor: pointer; /* Cursor pointer la hover */
-}
+/* button {
+    width: 80px;
+    height: 30px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+} */
 
-/* Stilizare butoane la hover */
+/*
 button:hover {
-    background-color: #555; /* Culoarea de fundal la hover */
+    background-color: #555;
 }
+*/
 
 .add-button {
     width: 100px; /* Lățimea butonului */
@@ -110,6 +111,23 @@ button:hover {
     text-align: center;
     position: center;
 }
+
+.edit-button, .delete-button {
+  width: 80px; /* Lățimea butonului */
+  height: 30px; /* Înălțimea butonului */
+  background-color: #333; /* Culoarea de fundal */
+  color: #fff; /* Culoarea textului */
+  border: none; /* Fără bordură */
+  cursor: pointer; /* Cursor pointer la hover */
+  display: inline-flex; /* Afișează iconița și textul pe aceeași linie */
+  align-items: center; /* Aliniază vertical iconița și textul */
+  justify-content: center; /* Aliniază orizontal iconița și textul */
+}
+
+.edit-button i, .delete-button i {
+  margin-right: 5px; /* Spațiul între iconiță și text */
+}
+
 
 
 

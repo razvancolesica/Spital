@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediCore - Reservations</title>
-  <link rel="stylesheet" th:href="@{/pageStyle.css}">
+  <link rel="icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/pageStyleSheet.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +40,6 @@
           <li><a href="specializations"><i class="fas fa-house-medical menu-icon"></i>Specializations</a></li>
           <li><a href="pacients"><i class="fas fa-hospital-user menu-icon"></i>Pacients</a></li>
           <li><a class="active-page" href="reservations"><i class="fas fa-calendar-days menu-icon"></i>Reservations</a></li>
-          <li><a href="showAddReservation"><i class="fas fa-circle-plus menu-icon"></i>Add Reservations</a></li>
         </ul>
       </nav>
     </div>
@@ -47,6 +47,11 @@
 
   <div class="main-content">
     <main>
+
+      <div class="title-container">
+        <h2>Reservations</h2>
+        <a href="showAddReservation"><i class="fas fa-circle-plus menu-icon"></i>Add Reservation</a>
+      </div>
 
       <table class="table-container">
         <thead>

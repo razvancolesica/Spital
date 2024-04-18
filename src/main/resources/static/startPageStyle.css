@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f8f9fa;
+    font-family: "Poppins", sans-serif;
+}
+
+.background-image {
+    width: 60%;
+    background-image: url('/bootstrap/images/login-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-container {
+    width: 40%;
+    background-color: #222327;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.btn-orange {
+    background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    transition: 0.5s; background-size: 200% auto;
+    color: #ffffff;
+    width: 100%;
+    height: 50px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.btn-orange:hover {
+    background-position: right center;
+    color:#fff;
+}
+
+a, a:visited, a:hover, a:active {
+    color: #ffffff;
+}
+
+#resetPasswordForm {
+    display: none;
+}
+
+.custom-container {
+    width: 75%;
+}
+
+.form-control {
+    background-color: #222327;
+    border: 1px solid #5A5B5E;
+    border-radius: 15px;
+    color: white;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.form-control:focus {
+    border-color: #ff8000;
+    background-color: #323339;
+    color:#fff;
+}
+
+.focused {
+    border-color: #ff8000 !important;
+    background-color: #323339 !important;
+    color: #fff !important;
+}
+
+.form-control::placeholder{
+    color: #5A5B5E;
+}
+
+.form-group {
+    margin-top:25px;
+}
+
+.register-button{
+    margin-left: 5px;
+}
+
+.input-group-text{
+    background-color: #222327;
+    border: 1px solid #5A5B5E;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: none;
+    color: white;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.bxs-show, .bxs-hide {
+    color: #5A5B5E;
+    font-size: 25px;
+}
+
+.register-question{
+    margin-top:25px;
+}
+
+.password-input {
+    border-right: none;
+}

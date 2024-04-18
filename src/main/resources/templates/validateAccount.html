@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons/css/boxicons.min.css">
+
+  <meta charset="UTF-8">
+  <title>Validate Account</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-orange {
+            background-color: #ff8000;
+            color: #ffffff;
+        }
+
+        .btn-orange:hover {
+            color: #ff8000;
+            background-color: #fff;
+            border-color: #ff8000;
+
+        }
+        #validateAccountForm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="requestValidateAccountForm">
+  <h2 class="text-center">Validate Account</h2>
+  <p class="message">Please complete your email for the account validation.</p>
+  <form action="/requestValidateAccount" method="post">
+    <div class="form-group">
+      <label for="emailValidation">Email</label>
+      <input type="email" class="form-control" id="emailValidation" name="emailValidation" placeholder="Enter your email" required>
+      <button type="submit" class="btn btn-orange" >Send Code</button>
+    </div>
+  </form>
+</div>
+<div class="container" id="validateAccountForm">
+  <h2 class="text-center">Validate Account</h2>
+  <p class="message">Please check your email for the account validation.</p>
+  <form action="/validateAccountForm" method="post">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+    </div>
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input type="text" class="form-control" id="code" name="code" placeholder="Enter your code" required>
+    </div>
+
+    <button type="submit" class="btn btn-orange" >Validate</button>
+  </form>
+</div>
+<script>
+    function showValidationForm(email) {
+        document.getElementById('requestValidateAccountForm').style.display = 'none';
+        var validateForm = document.getElementById('validateAccountForm');
+        validateForm.style.display = 'block';
+        document.getElementById('email').value = email;
+    }
+
+    function handleFirstFormSubmit(event) {
+        event.preventDefault();
+        var email = document.getElementById('emailValidation').value;
+        if (email) {
+            showValidationForm(email);
+        }
+    }
+    document.querySelector('#requestValidateAccountForm button[type="submit"]').addEventListener('click', function(event) {
+        event.preventDefault();
+        var email = document.getElementById('emailValidation').value;
+        if (email) {
+            fetch('/requestValidateAccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded', // or 'application/json' if your server expects JSON
+                },
+                body: 'emailValidation=' + encodeURIComponent(email)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    showValidationForm(email);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    });
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

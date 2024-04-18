@@ -2,7 +2,9 @@ package com.spital.controller;
 
 import com.spital.DTO.PacientDTO;
 import com.spital.DTO.SpecializationDTO;
+import com.spital.DTO.UserDetails;
 import com.spital.service.SpecializationService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,14 @@ public class SpecializationController {
     private SpecializationService service;
 
     @GetMapping("/specializations")
-    public ModelAndView getAllSpecializations() {
+    public ModelAndView getAllSpecializations(HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        ModelAndView redirect = new ModelAndView("startPage");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return redirect;
+        }
+
         log.info("SpecializationController.getAllSpecializations() has started...");
         List<SpecializationDTO> specializations = service.getAllSpecializations();
         ModelAndView modelAndView = new ModelAndView("specializations");
@@ -62,7 +71,12 @@ public class SpecializationController {
     }
 
     @GetMapping("/showAddSpecialization")
-    public String showAddSpecialization(Model model){
+    public String showAddSpecialization(Model model, HttpSession session){
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return "redirect:/";
+        }
         model.addAttribute("specialization", new SpecializationDTO());
         return "addSpecialization";
     }
@@ -74,7 +88,13 @@ public class SpecializationController {
     }
 
     @GetMapping("/showEditSpecialization")
-    public String showEditSpecializationPage(@RequestParam Integer id, Model model) {
+    public String showEditSpecializationPage(@RequestParam Integer id, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return "redirect:/";
+        }
+
         Optional<SpecializationDTO> specializationDTOOptional = service.getSpecializationById(id);
         if (specializationDTOOptional.isPresent()) {
             model.addAttribute("specialization", specializationDTOOptional.get());

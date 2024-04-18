@@ -1,9 +1,11 @@
 package com.spital.controller;
 import com.spital.DTO.ReservationDTO;
 import com.spital.DTO.SpecializationDTO;
+import com.spital.DTO.UserDetails;
 import com.spital.service.PacientService;
 import com.spital.service.ReservationService;
 import com.spital.service.SpecializationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +30,14 @@ public class ReservationController {
 
     //Afiseaza toate rezervarile.
     @GetMapping("/reservations")
-    public ModelAndView getAllReservations() {
+    public ModelAndView getAllReservations(HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        ModelAndView redirect = new ModelAndView("startPage");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return redirect;
+        }
+
         log.info("ReservationController.getAllReservations() has started...");
         List<ReservationDTO> result = service.getAllReservations();
         ModelAndView modelAndView = new ModelAndView("reservations");
@@ -38,11 +47,6 @@ public class ReservationController {
     }
 
    /* //Afiseaza rezervarea dupa ID-ul rezervarii.
-    @GetMapping("/getReservation")
-    public List<Reservation> getReservation(@RequestParam String reservationID) {
-        log.info("ReservationController.getReservation() has started...");
-        return service.getReservation(reservationID);
-    }
 
     //Afiseaza rezervarea dupa ID-ul pacientului.
     @GetMapping("/getReservationForPacient")
@@ -50,7 +54,6 @@ public class ReservationController {
         log.info("ReservationController.getReservationForPacient() has started...");
         return service.getReservationForPacient(pacientID);
     }
-
     */
 
     //Adaugare rezervare
@@ -90,7 +93,12 @@ public class ReservationController {
 
 
     @GetMapping("/showAddReservation")
-    public String showAddReservation(Model model){
+    public String showAddReservation(Model model, HttpSession session){
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return "redirect:/";
+        }
         model.addAttribute("reservation", new ReservationDTO());
         return "addReservation";
     }
@@ -116,7 +124,13 @@ public class ReservationController {
 
 
     @GetMapping("/showEditReservation")
-    public String showEditReservationPage(@RequestParam Integer id, Model model) {
+    public String showEditReservationPage(@RequestParam Integer id, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        if(!userDetails.getUserType().equals("admin"))
+        {
+            return "redirect:/";
+        }
+
         Optional<ReservationDTO> reservationDTOOptional = service.getReservationById(id);
         if (reservationDTOOptional.isPresent()) {
             model.addAttribute("reservation", reservationDTOOptional.get());

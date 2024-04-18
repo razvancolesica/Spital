@@ -2,6 +2,7 @@ package com.spital.service;
 import com.spital.DTO.PacientDTO;
 import com.spital.DTO.ReservationDTO;
 import com.spital.entity.Pacient;
+import com.spital.repository.AdminRepository;
 import com.spital.repository.PacientRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class PacientService {
 
     @Autowired
     PacientRepository pacientRepository;
+    @Autowired
+    AdminRepository adminRepository;
     @Autowired
     ReservationService reservationService;
 
@@ -101,6 +104,35 @@ public class PacientService {
         log.info("ReservationService.getPacientById(Integer pacientID) retrieving pacient by ID...");
         Optional<Pacient> pacientOptional = pacientRepository.findById(String.valueOf(pacientID));
         return pacientOptional.map(p -> mapper.map(p, PacientDTO.class));
+    }
+
+    public PacientDTO getPacientByEmail(String email) {
+        Optional<Pacient> optionalPacient = pacientRepository.findByEmail(email);
+
+        if (optionalPacient.isPresent()) {
+            Pacient pacient = optionalPacient.get();
+
+            PacientDTO pacientDTO = new PacientDTO();
+            pacientDTO.setPacientID(pacient.getPacientID());
+            pacientDTO.setFirstName(pacient.getFirstName());
+            pacientDTO.setLastName(pacient.getLastName());
+            pacientDTO.setEmail(pacient.getEmail());
+            pacientDTO.setAge(pacient.getAge());
+            pacientDTO.setCnp(pacient.getCnp());
+            pacientDTO.setPhoneNumber(pacient.getPhoneNumber());
+            return pacientDTO;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean emailExists(String email) {
+        return pacientRepository.findByEmail(email).isPresent() || adminRepository.findByEmail(email).isPresent();
+    }
+
+    public void savePacient(Pacient pacient)
+    {
+        pacientRepository.save(pacient);
     }
 
 }

@@ -28,6 +28,9 @@ public class ReservationService {
     @Autowired
     SpecializationRepository specializationRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     ModelMapper mapper = new ModelMapper();
 
     //Afiseaza toate rezervarile
@@ -67,6 +70,7 @@ public class ReservationService {
         }
         // Căutăm pacientul în funcție de nume
         PacientDTO pacient = getPacientByName(reservationDTO.getFirstName(), reservationDTO.getLastName());
+        emailService.sendReservationDoneEmail(pacient.getEmail(), pacient.getFirstName(), pacient.getLastName(), reservationDTO.getReservationDate(), reservationDTO.getSpecialization());
         if (pacient != null) {
             // Dacă pacientul există, setăm id-ul rezervării conform acestuia
             reservationDTO.setPacientID(pacient.getPacientID());

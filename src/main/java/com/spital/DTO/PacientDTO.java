@@ -14,5 +14,7 @@ public class PacientDTO {
     private int age;
     private String cnp;
     private String email;
+    private String password;
     private String phoneNumber;
+    private String userType;
 }

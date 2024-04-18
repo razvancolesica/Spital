@@ -32,6 +32,12 @@ public class Pacient {
     @Column(name = "email")
     private String email;
     @NotNull
+    @Column(name = "password_pacient")
+    private String password;
+    @NotNull
     @Column(name = "phone_number")
     private String phoneNumber;
+    @NotNull
+    @Column(name = "user_type")
+    private String userType;
 }

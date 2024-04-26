@@ -73,23 +73,17 @@ public class AuthController {
 
 
         if (!emailMatcher.find()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Email is invalid.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password!");
             return "redirect:/";
         }
 
         if (!passwordMatcher.find()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Password must contain at least one uppercase letter and one number.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password!");
             return "redirect:/";
         }
 
         if (email.isEmpty() || password.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Email and password must not be empty.");
-            return "redirect:/";
-        }
-
-        if(pacientUser.isEmpty() && adminUser.isEmpty())
-        {
-            redirectAttributes.addFlashAttribute("errorMessage", "Please select a user type.");
             return "redirect:/";
         }
 

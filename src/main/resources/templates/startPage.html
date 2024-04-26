@@ -17,7 +17,7 @@
     <div class="custom-container">
         <h2>Log In or Register</h2>
         <form th:action="@{/login}" method="post" id="registerForm">
-            <div th:if="${errorMessage}" th:text="${errorMessage}" style="color:white;"></div>
+            <div th:if="${errorMessage}" th:text="${errorMessage}" style="color:black;"></div>
             <div class="form-group">
                 <label class="text-start" for="email">Email</label>
                 <input type="email" id="email" name="email" class="form-control shadow-none" placeholder="Enter your email" required>
@@ -98,10 +98,6 @@
 
     function showResetPasswordForm() {
         var form = document.getElementById("resetPasswordForm");
-        var registerQuestionDiv = document.getElementById("registerQuestion");
-        if (registerQuestionDiv.style.display === "block") {
-            registerQuestionDiv.style.display = "none";
-        }
         if (form.style.display === "block") {
             form.style.display = "none";
         } else {

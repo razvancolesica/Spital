@@ -6,6 +6,7 @@ import com.spital.entity.PasswordReset;
 import com.spital.repository.AdminRepository;
 import com.spital.repository.PacientRepository;
 import com.spital.repository.PasswordResetRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <link rel="stylesheet" href="https://unpkg.com/boxicons/css/boxicons.min.css">
 
@@ -14,13 +14,13 @@
             margin: 0;
             display: flex;
             height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #f4f7fc;
             font-family: "Poppins", sans-serif;
         }
 
         .background-image {
             width: 60%;
-            background-image: url('/bootstrap/images/login-background.jpg');
+            background-image: url("/images/login-background.jpg");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -28,8 +28,8 @@
 
         .form-container {
             width: 40%;
-            background-color: #222327;
-            color: #ffffff;
+            background-color: #f4f7fc;
+            color: black;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -42,7 +42,7 @@
         }
 
         .btn-orange {
-            background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+            background-image: linear-gradient(to right, #cf5a7a 0%, #624B75  51%, #cf5a7a  100%);
             transition: 0.5s; background-size: 200% auto;
             color: #ffffff;
             width: 100%;
@@ -58,27 +58,32 @@
         }
 
         a, a:visited, a:hover, a:active {
-            color: #ffffff;
+            color: #cf5a7a;
         }
 
         .form-control {
-            background-color: #222327;
-            border: 1px solid #5A5B5E;
+            background-color: #f4f7fc;
+            border: 1px solid black;
             border-radius: 15px;
-            color: white;
+            color: black;
             padding: 10px;
             margin-top:0px;
             height: 50px;
         }
 
         .form-control:focus {
-            border-color: #ff8000;
-            background-color: #323339;
-            color:#fff;
+            border-color: #cf5a7a;
+            background-color: #f4f7fc;
+            color:black;
         }
 
         .form-control::placeholder{
             color: #5A5B5E;
+        }
+
+        .form-control[readonly] {
+            background-color: #f4f7fc!important;
+            color:black!important;
         }
 
         .form-group {
@@ -100,11 +105,10 @@
   <div class="custom-container">
     <div class="container" id="requestValidateAccountForm">
       <h2>Validate Account</h2>
-      <p class="message">Please enter your email for account validation.</p>
       <form action="/requestValidateAccount" method="post">
         <div class="form-group">
           <label for="emailValidation">Email</label>
-          <input type="email" class="form-control shadow-none" id="emailValidation" name="emailValidation" placeholder="Enter your email" required>
+          <input type="email" class="form-control shadow-none" id="emailValidation" name="emailValidation" th:value="${emailValidation}" readonly>
           <button type="submit" class="btn btn-orange shadow-none" >Send Code</button>
         </div>
       </form>

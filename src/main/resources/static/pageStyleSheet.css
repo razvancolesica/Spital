@@ -105,7 +105,7 @@ body{
 .dropdown-content a:hover {
   color: white;
   background: rgb(98,75,117);
-  background: linear-gradient(90deg, rgba(98,75,117,1) 0%, rgba(213,109,136,1) 100%);
+  background: linear-gradient(90deg, #624B75 0%, #cf5a7a 100%);
 }
 
 .show {
@@ -141,7 +141,7 @@ nav ul li {
 
 .active-page {
   background: rgb(98,75,117);
-  background: linear-gradient(90deg, rgba(98,75,117,1) 0%, rgba(213,109,136,1) 100%);
+  background: linear-gradient(90deg, #624B75 0%, #cf5a7a 100%);
   color: white;
 }
 
@@ -156,7 +156,7 @@ nav ul li a {
 nav ul li a:hover {
   color: white;
   background: rgb(98,75,117);
-  background: linear-gradient(90deg, rgba(98,75,117,1) 0%, rgba(213,109,136,1) 100%);
+  background: linear-gradient(90deg, #624B75 0%, #cf5a7a 100%);
 }
 
 .title-container {
@@ -180,13 +180,15 @@ nav ul li a:hover {
   padding: 10px 15px;
   border-radius: 15px;
   background: rgb(98, 75, 117);
-  background: linear-gradient(90deg, rgba(98, 75, 117, 1) 0%, rgba(213, 109, 136, 1) 100%);
+  background: linear-gradient(to right, #cf5a7a 0%, #624B75  51%, #cf5a7a  100%);
+  transition: 0.5s; background-size: 200% auto;
+  color: #ffffff;
 }
 
+
 .title-container a:hover{
-  cursor: pointer;
-  background: rgb(213,109,136);
-  background: linear-gradient(90deg, rgba(213,109,136,1) 0%, rgba(98,75,117,1) 100%);
+  color:#fff;
+    background-position: right center;
 }
 
 .table-container {
@@ -197,20 +199,14 @@ nav ul li a:hover {
   overflow: hidden;
 }
 
-.table-container thead {
-  background-color: #333 !important;
-  color: #fff;
-
-}
-
 .table-container th, td {
   padding: 8px;
   text-align: center;
 }
 
 .table-container th {
+  color: #fff;
   background-color: #cf5a7a;
-
 }
 
 .table-container tr{

@@ -1,4 +1,5 @@
 package com.spital.controller;
+import com.spital.DTO.EmailValidation;
 import com.spital.DTO.PacientDTO;
 import com.spital.DTO.UserDetails;
 import com.spital.entity.Pacient;
@@ -30,6 +31,8 @@ public class PacientController {
     private ReservationService reservationService;
     @Autowired
     private PacientMapper pacientMapper;
+
+    EmailValidation emailValidation = new EmailValidation();
 
 
     //Afiseaza toti pacientii.
@@ -139,15 +142,18 @@ public class PacientController {
     }
 
     @PostMapping("/submitPacient")
-    public String submitPacient(@ModelAttribute("pacient") PacientDTO pacientDTO, Model model) throws IOException, NoSuchAlgorithmException {
+    public String submitPacient(@ModelAttribute("pacient") PacientDTO pacientDTO,
+                                Model model, HttpSession session) throws IOException, NoSuchAlgorithmException {
         pacientDTO.setUserType("pacient");
-
         if (service.emailExists(pacientDTO.getEmail())) {
             model.addAttribute("emailError2", "Email already exists.");
             return "pacientRegistrationForm";
         }
 
         Pacient pacientEntity = pacientMapper.mapToPacientEntity(pacientDTO);
+
+        emailValidation.setEmail(pacientDTO.getEmail());
+        session.setAttribute("emailValidation", emailValidation);
 
         service.savePacient(pacientEntity);
         model.addAttribute("msg", "Pacient registered successfully.");

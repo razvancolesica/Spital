@@ -115,16 +115,17 @@ public class ReservationService {
         }
     }
 
-    /*
+
 
     //Afiseaza rezervarea dupa ID-ul pacientului.
-    public List<Reservation> getReservationForPacient(String pacientID) {
-        log.info("ReservationService.getReservations() retrieving all reservations...");
+    public List<ReservationDTO> getReservationsForPacient(Integer pacientID) {
+        log.info("ReservationService.getReservationsForPacient(Integer pacientID) retrieving reservations for pacient...");
         return reservationRepository.findAll().stream()
-                .filter(r -> r.getPacientID().equals(pacientID)).collect(Collectors.toList());
+                .filter(reservation -> reservation.getPacientID().equals(pacientID))
+                .map(reservation -> mapper.map(reservation, ReservationDTO.class))
+                .collect(Collectors.toList());
     }
 
-    */
 
     public Optional<ReservationDTO> getReservationById(Integer id) {
         log.info("ReservationService.getReservationById(Integer id) retrieving reservation by ID...");

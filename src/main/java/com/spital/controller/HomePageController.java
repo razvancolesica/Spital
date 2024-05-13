@@ -1,9 +1,11 @@
 package com.spital.controller;
 
 import com.spital.DTO.*;
+import com.spital.entity.Reservation;
 import com.spital.service.AdminService;
 import com.spital.service.PacientService;
 import com.spital.service.PasswordResetService;
+import com.spital.service.ReservationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
 
@@ -20,6 +23,8 @@ public class HomePageController {
 
     @Autowired
     PacientService pacientService;
+    @Autowired
+    ReservationService reservationService;
     @Autowired
     AdminService adminService;
     @Autowired
@@ -40,6 +45,8 @@ public class HomePageController {
         {
             return "redirect:/";
         }
+        List<ReservationDTO> reservations = reservationService.getReservationsForPacient(pacient.getPacientID());
+        model.addAttribute("reservations", reservations);
         model.addAttribute("pacient", pacient);
         return "homePagePacient";
     }

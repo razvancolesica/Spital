@@ -2,10 +2,7 @@ package com.spital.controller;
 
 import com.spital.DTO.*;
 import com.spital.entity.Reservation;
-import com.spital.service.AdminService;
-import com.spital.service.PacientService;
-import com.spital.service.PasswordResetService;
-import com.spital.service.ReservationService;
+import com.spital.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +22,8 @@ public class HomePageController {
     PacientService pacientService;
     @Autowired
     ReservationService reservationService;
+    @Autowired
+    SpecializationService specializationService;
     @Autowired
     AdminService adminService;
     @Autowired
@@ -47,6 +46,22 @@ public class HomePageController {
         }
         List<ReservationDTO> reservations = reservationService.getReservationsForPacient(pacient.getPacientID());
         model.addAttribute("reservations", reservations);
+
+        int totalReservationsForPacient = reservationService.getReservationsForPacient(pacient.getPacientID()).size();
+        model.addAttribute("totalReservationsForPacient", totalReservationsForPacient);
+
+        int totalReservations = reservationService.getAllReservations().size();
+        model.addAttribute("totalReservations", totalReservations);
+
+        int totalPacients = pacientService.getAllPacients().size();
+        model.addAttribute("totalPacients", totalPacients);
+
+        int totalSpecializations = specializationService.getAllSpecializations().size();
+        model.addAttribute("totalSpecializations", totalSpecializations);
+
+        int totalDoctors = specializationService.getAllSpecializations().size();
+        model.addAttribute("totalDoctors", totalDoctors);
+
         model.addAttribute("pacient", pacient);
         return "homePagePacient";
     }

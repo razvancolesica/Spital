@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MediCore - Specializations</title>
     <link rel="icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/homePagePacientStyle.css}">
     <link rel="stylesheet" th:href="@{/pageStyleSheet.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +17,7 @@
 <div class="top-bar">
     <div class="user-button">
         <button class="user-btn">
-            <img th:src="@{/images/admin-profile-image.jpeg}" alt="User Avatar">
+            <img th:src="@{/images/pacient-profile-image.svg}" alt="User Avatar">
             <div class="user-info">
                 <span class="user-name" th:text="${pacient.lastName + ' ' + pacient.firstName}"></span>
                 <span class="user-role">Pacient</span>
@@ -49,6 +50,35 @@
 
     <div class="main-content">
         <main>
+            <table class="top-table">
+                <tr>
+                    <td class="reservations-statistics-container">
+                        <div class="statistics-container">
+                            <div class="top-text">Total Reservations</div>
+                            <div class="bottom-text" th:text="${totalReservations}"></div>
+                        </div>
+                    </td>
+                    <td class="pacients-statistics-container">
+                        <div class="statistics-container">
+                            <div class="top-text">Total Pacients</div>
+                            <div class="bottom-text" th:text="${totalPacients}"></div>
+                        </div>
+                    </td>
+                    <td class="specializations-statistics-container">
+                        <div class="statistics-container">
+                            <div class="top-text">Total Specializations</div>
+                            <div class="bottom-text" th:text="${totalSpecializations}"></div>
+                        </div>
+                    </td>
+                    <td class="doctors-statistics-container">
+                        <div class="statistics-container">
+                            <div class="top-text">Specialist Doctors</div>
+                            <div class="bottom-text" th:text="${totalDoctors}"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
             <table>
                 <tr th:each="reservation : ${reservations}">
                     <td th:text="${reservation.id}"></td>

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -120,5 +123,28 @@ public class HomePageController {
             return "redirect:/showResetPasswordForm";
         }
     }
+
+    @GetMapping("/reservationsOverviewForDay")
+    public String getReservationsOverview(@RequestParam(value = "date", required = false) String dateStr, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        List<ReservationDTO> reservationsNotFiltered = reservationService.getAllReservations();
+        List<ReservationDTO> reservationList = new ArrayList<>();
+        PacientDTO pacient = pacientService.getPacientByEmail(userDetails.getEmail());
+        LocalDate date = null;
+        if (dateStr != null) {
+            date = LocalDate.parse(dateStr);
+        }
+        LocalDate reservationDate = null;
+        for (ReservationDTO reservation : reservationsNotFiltered) {
+            reservationDate = reservation.getReservationDate().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (reservation.getPacientID().equals(pacient.getPacientID()) && reservationDate.equals(date)) {
+                reservationList.add(reservation);
+            }
+        }
+
+        model.addAttribute("reservationList", reservationList);
+        return "reservationForDateTable :: table";
+    }
+
 
 }

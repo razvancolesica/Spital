@@ -10,10 +10,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/fullcalendar@5.10.1/main.min.css">
+    <script src="https://unpkg.com/fullcalendar@5.10.1/main.min.js"></script>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .calendar-container {
+            width: 40%;
+        }
+
+        #calendar {
+            width: 100%;
+            height: 400px;
+            padding: 0 10px;
+            font-size: 14px;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .fc .fc-toolbar.fc-header-toolbar {
+            background-color: #FF512F;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .fc .fc-toolbar-title {
+            font-size: 16px;
+        }
+
+        .fc .fc-button {
+            font-size: 12px;
+        }
+
+        .fc .fc-daygrid-day-number {
+            font-size: 12px;
+        }
+
+        .table-container {
+            width: 55%;
+            margin-top: 0;
+        }
+
+        #table-container {
+            display: none;
+        }
+
+        #table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #table-container th, #table-container td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #table-container th {
+            background-color: #ff8000;
+            color: white;
+        }
+
+         .fc-daygrid-day:hover {
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-
 <div class="top-bar">
     <div class="user-button">
         <button class="user-btn">
@@ -79,45 +149,57 @@
                 </tr>
             </table>
 
-            <table>
-                <tr th:each="reservation : ${reservations}">
-                    <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.pacientID}"></td>
-                    <td th:text="${reservation.firstName}"></td>
-                    <td th:text="${reservation.lastName}"></td>
-                </tr>
-            </table>
-            <table>
-                <tr th:object="${pacient}">
-                    <td th:text="*{pacientID}"></td>
-                    <td th:text="*{firstName}"></td>
-                    <td th:text="*{lastName}"></td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+                <div class="table-container">
+                    <div id="table-container"></div>
+                </div>
+            </div>
         </main>
     </div>
 </div>
 
 <script>
 function toggleDropdown(event) {
-  event.stopPropagation(); // Oprire propagare eveniment pentru a preveni deschiderea meniului dropdown atunci când se apasă pe numele sau poza utilizatorului
-  document.getElementById("dropdown-content").classList.toggle("show");
+    event.stopPropagation(); // Prevent event propagation to avoid dropdown opening when clicking on user name or avatar
+    document.getElementById("dropdown-content").classList.toggle("show");
 }
 
 document.getElementById("user-icon").addEventListener("click", toggleDropdown);
 
 window.onclick = function(event) {
-  if (!event.target.matches('.user-btn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+    if (!event.target.matches('.user-btn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
     }
-  }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var tableContainer = document.getElementById('table-container');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        dateClick: function(info) {
+            fetch('/reservationsOverviewForDay?date=' + info.dateStr)
+                .then(response => response.text())
+                .then(data => {
+                    tableContainer.style.display = 'block';
+                    tableContainer.innerHTML = data;
+                });
+        }
+    });
+
+    calendar.render();
+});
 </script>
 
 </body>

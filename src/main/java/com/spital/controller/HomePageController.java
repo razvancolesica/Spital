@@ -7,12 +7,12 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,9 +142,101 @@ public class HomePageController {
             }
         }
 
+        boolean hasReservations = !reservationList.isEmpty();
+        boolean isFutureDate = date != null && date.isAfter(LocalDate.now());
+
         model.addAttribute("reservationList", reservationList);
+        model.addAttribute("hasReservations", hasReservations);
+        model.addAttribute("isFutureDate", isFutureDate);
+
         return "reservationForDateTable :: table";
     }
 
+
+
+    @GetMapping("/patientReservationDates")
+    @ResponseBody
+    public List<LocalDate> getPatientReservationDates(HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        List<ReservationDTO> reservationsNotFiltered = reservationService.getAllReservations();
+        List<LocalDate> reservationDates = new ArrayList<>();
+        PacientDTO pacient = pacientService.getPacientByEmail(userDetails.getEmail());
+
+        for (ReservationDTO reservation : reservationsNotFiltered) {
+            LocalDate reservationDate = reservation.getReservationDate().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (reservation.getPacientID().equals(pacient.getPacientID())) {
+                reservationDates.add(reservationDate);
+            }
+        }
+
+        return reservationDates;
+    }
+
+
+    //Adaugare rezervare de catre pacient
+    @PostMapping("/addReservationByPacient")
+    public String addReservationByPacient(@ModelAttribute("reservation") ReservationDTO reservation, BindingResult bindingResult, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        PacientDTO pacient = pacientService.getPacientByEmail(userDetails.getEmail());
+
+        // Precompletarea detaliilor pacientului
+        reservation.setPacientID(pacient.getPacientID());
+        reservation.setFirstName(pacient.getFirstName());
+        reservation.setLastName(pacient.getLastName());
+
+        if (bindingResult.hasErrors()) {
+            return "addReservationByPacient"; // Rămâne pe pagina de adăugare a rezervării
+        }
+
+        if (reservation.getSpecialization().isEmpty()) {
+            bindingResult.rejectValue("specialization", "error.specialization", "Specialization cannot be empty");
+        }
+
+        if (reservation.getReservationDate() == null) {
+            bindingResult.rejectValue("reservationDate", "error.reservationDate", "Reservation date cannot be empty");
+        }
+
+        if (reservation.getReservationTime() == null || reservation.getReservationTime().isEmpty()) {
+            bindingResult.rejectValue("reservationTime", "error.reservationTime", "Reservation time cannot be empty");
+        }
+
+        if (reservation.getIssue().isEmpty()) {
+            bindingResult.rejectValue("issue", "error.issue", "Issue cannot be empty");
+        }
+
+        // Concatenare data și ora pentru a crea LocalDateTime
+        String dateTimeStr = reservation.getReservationDate().toLocalDate() + "T" + reservation.getReservationTime();
+        reservation.setReservationDate(LocalDateTime.parse(dateTimeStr));
+
+        ReservationDTO addedReservation = reservationService.addReservation(reservation);
+        if (addedReservation == null) {
+            model.addAttribute("errorMessage", "This patient/specialization does not exist!");
+            return "addReservationByPacient"; // Rămâne pe pagina de adăugare a rezervării
+        }
+        return "redirect:/homePagePacient";
+    }
+
+    @GetMapping("/showAddReservationByPacient")
+    public String showAddReservationByPacient(@RequestParam(value = "date", required = false) String dateStr, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        if (!userDetails.getUserType().equals("pacient")) {
+            return "redirect:/";
+        }
+        PacientDTO pacient = pacientService.getPacientByEmail(userDetails.getEmail());
+        ReservationDTO reservation = new ReservationDTO();
+        reservation.setPacientID(pacient.getPacientID());
+        reservation.setFirstName(pacient.getFirstName());
+        reservation.setLastName(pacient.getLastName());
+
+        List<SpecializationDTO> specializations = specializationService.getAllSpecializations();
+        model.addAttribute("specializations", specializations);
+
+        if (dateStr != null) {
+            reservation.setReservationDate(LocalDate.parse(dateStr).atStartOfDay(ZoneId.systemDefault()).toLocalDateTime());
+        }
+
+        model.addAttribute("reservation", reservation);
+        return "addReservationByPacient";
+    }
 
 }

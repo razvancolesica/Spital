@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCore - Specializations</title>
+    <title>MediCore - Home</title>
     <link rel="icon" th:href="@{/images/favicon.png}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/homePagePacientStyle.css}">
     <link rel="stylesheet" th:href="@{/pageStyleSheet.css}">
@@ -18,6 +18,8 @@
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            margin-left: 20px;
+            padding: 10px;
         }
 
         .calendar-container {
@@ -27,7 +29,6 @@
         #calendar {
             width: 100%;
             height: 400px;
-            padding: 0 10px;
             font-size: 14px;
             background-color: white;
             color: black;
@@ -36,9 +37,10 @@
         }
 
         .fc .fc-toolbar.fc-header-toolbar {
-            background-color: #FF512F;
+            background-color: #cf5a7a;
             color: white;
             border-radius: 10px 10px 0 0;
+            padding: 5px;
         }
 
         .fc .fc-toolbar-title {
@@ -46,7 +48,25 @@
         }
 
         .fc .fc-button {
+            background-color: #913f55;
             font-size: 12px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 3px;
+            box-shadow: none !important;
+        }
+
+        .fc-today-button{
+            background-color: #913f55 !important;
+        }
+
+         .fc-today-button:hover{
+             background-color: #682d3d !important;
+
+         }
+
+        .fc-button:hover{
+            background-color: #682d3d !important;
         }
 
         .fc .fc-daygrid-day-number {
@@ -54,8 +74,9 @@
         }
 
         .table-container {
-            width: 55%;
+            width: 57.5%;
             margin-top: 0;
+             position: relative;
         }
 
         #table-container {
@@ -68,18 +89,65 @@
         }
 
         #table-container th, #table-container td {
-            border: 1px solid #ddd;
             padding: 8px;
         }
 
         #table-container th {
-            background-color: #ff8000;
+            background-color: #cf5a7a;
             color: white;
         }
 
          .fc-daygrid-day:hover {
             cursor: pointer;
             background-color: #f9f9f9;
+        }
+
+        .reservation-day {
+            background-color: #38a457 !important;
+            color: white;
+        }
+
+        .reservation-day:hover{
+            background-color: #1f8b3d !important;
+        }
+
+        .fc-toolbar-title{
+            margin-left: 3px !important;
+        }
+
+        .add-reservation-button-by-pacient{
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 16px;
+            margin: 0 auto;
+            margin-top: 10px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 15px;
+            background: rgb(98, 75, 117);
+            background: linear-gradient(to right, #cf5a7a 0%, #624B75  51%, #cf5a7a  100%);
+            transition: 0.5s; background-size: 200% auto;
+            color: #ffffff;
+            border: none;
+        }
+
+        .add-reservation-button-by-pacient:hover{
+            color:#fff;
+            background-position: right center;
+            cursor: pointer;
+        }
+
+        #default-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 18px;
+            color: #666;
         }
     </style>
 </head>
@@ -95,14 +163,13 @@
             <i id="user-icon" class="fas fa-chevron-down dropdown-arrow"></i>
         </button>
         <div class="dropdown-content" id="dropdown-content">
-            <a href="#">My Profile</a>
+            <a href="myProfile">My Profile</a>
             <a href="/" onclick="return confirm('Are you sure you want to log out?');">Log Out</a>
         </div>
     </div>
 </div>
 
 <div class="all-content">
-
     <header>
         <div class="sidebar">
             <div class="logo-container">
@@ -110,9 +177,9 @@
             </div>
             <nav>
                 <ul>
-                    <li><a class="active-page" href="specializations"><i class="fas fa-house-medical menu-icon"></i>Specializations</a></li>
-                    <li><a href="pacients"><i class="fas fa-hospital-user menu-icon"></i>Pacients</a></li>
-                    <li><a href="reservations"><i class="fas fa-calendar-days menu-icon"></i>Reservations</a></li>
+                    <li><a class="active-page" href="homePagePacient"><i class="fas fa-house-medical menu-icon"></i>Home</a></li>
+                    <li><a href="reservationsForPacient"><i class="fas fa-calendar-days menu-icon"></i>My Reservations</a></li>
+                    <li><a href="showSpecializationsToPacient"><i class="fas fa-hospital-user menu-icon"></i>Specializations</a></li>
                 </ul>
             </nav>
         </div>
@@ -154,6 +221,7 @@
                     <div id="calendar"></div>
                 </div>
                 <div class="table-container">
+                    <div id="default-message">Please select a date from the calendar to see reservations.</div>
                     <div id="table-container"></div>
                 </div>
             </div>
@@ -185,21 +253,47 @@ window.onclick = function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var tableContainer = document.getElementById('table-container');
+    var defaultMessage = document.getElementById('default-message');
+    var currentDate = new Date(); // Data curentă
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        dateClick: function(info) {
-            fetch('/reservationsOverviewForDay?date=' + info.dateStr)
-                .then(response => response.text())
-                .then(data => {
-                    tableContainer.style.display = 'block';
-                    tableContainer.innerHTML = data;
-                });
-        }
-    });
+    fetch('/patientReservationDates')
+        .then(response => response.json())
+        .then(dates => {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                dateClick: function(info) {
+                    var selectedDate = new Date(info.dateStr);
+                    fetch('/reservationsOverviewForDay?date=' + info.dateStr)
+                        .then(response => response.text())
+                        .then(data => {
+                            tableContainer.style.display = 'block';
+                            tableContainer.innerHTML = data;
+                            defaultMessage.style.display = 'none'; // Ascunde mesajul implicit când se afișează tabelul
 
-    calendar.render();
+                            // Adaugă butonul pentru adăugarea rezervării dacă data este mai mare decât data curentă
+                            if (selectedDate > currentDate) {
+                                var addButton = document.createElement('button');
+                                addButton.innerText = 'Add Reservation';
+                                addButton.className = 'add-reservation-button-by-pacient';
+                                addButton.onclick = function() {
+                                    window.location.href = '/showAddReservationByPacient?date=' + info.dateStr;
+                                };
+                                tableContainer.appendChild(addButton);
+                            }
+                        });
+                },
+                dayCellDidMount: function(info) {
+                    var dateStr = new Date(info.date).toLocaleDateString('en-CA'); // Folosește formatul corect
+                    if (dates.includes(dateStr)) {
+                        info.el.classList.add('reservation-day');
+                    }
+                }
+            });
+            calendar.render();
+        });
 });
+
+
 </script>
 
 </body>

@@ -22,27 +22,29 @@
 <body>
 
 <div class="container">
-  <form class="form-container" th:action="@{/addReservation}" th:object="${reservation}" method="post">
+  <form class="form-container" th:action="@{/addReservationByPacient}" th:object="${reservation}" method="post">
     <h2 class="h2-title">Add Reservation</h2>
-    <input type="hidden" placeholder="pacientID" th:field="*{pacientID}"><br>
 
-    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></p>
-    <input type="text" placeholder="First Name" th:field="*{firstName}"><br>
-
-    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></p>
-    <input type="text" placeholder="Last Name" th:field="*{lastName}"><br>
+    <input type="hidden" th:field="*{pacientID}"><br>
 
     <p th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}" style="color: red"></p>
-    <input type="datetime-local" placeholder="Reservation Date" th:field="*{reservationDate}"><br>
+    <label>Reservation Date</label>
+    <input type="hidden" th:field="*{reservationDate}"><br>
+    <input type="text" th:field="*{reservationDate}" th:value="${#temporals.format(reservationDate, 'yyyy-MM-dd')}" readonly><br>
+
+    <label>Reservation Time</label>
+    <input type="time" th:field="*{reservationTime}"><br>
 
     <p th:if="${#fields.hasErrors('specialization')}" th:errors="*{specialization}" style="color: red"></p>
+    <label>Specialization</label>
     <select th:field="*{specialization}">
       <option value="" disabled selected>Select a specialization</option>
       <option th:each="specialization : ${specializations}" th:value="${specialization.specializationName}" th:text="${specialization.specializationName}"></option>
     </select><br>
 
     <p th:if="${#fields.hasErrors('issue')}" th:errors="*{issue}" style="color: red"></p>
-    <textarea oninput="limitTextarea(this)" rows="5" cols="50" placeholder="Issue" th:field="*{issue}"></textarea><br>
+    <label>Issue</label>
+    <textarea oninput="limitTextarea(this)" rows="5" cols="50" th:field="*{issue}"></textarea><br>
     <span id="charCount">0/300 characters</span><br><br>
 
     <p th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></p>

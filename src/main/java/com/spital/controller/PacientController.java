@@ -172,4 +172,15 @@ public class PacientController {
         return "startPage";
     }
 
+
+    @GetMapping("/myProfile")
+    public String getMyProfile(HttpSession session, Model model){
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        PacientDTO pacient = service.getPacientByEmail(userDetails.getEmail());
+        model.addAttribute("pacient", pacient);
+
+
+        return "myProfile";
+    }
+
 }

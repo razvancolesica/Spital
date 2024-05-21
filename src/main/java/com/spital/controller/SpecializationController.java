@@ -3,6 +3,7 @@ package com.spital.controller;
 import com.spital.DTO.PacientDTO;
 import com.spital.DTO.SpecializationDTO;
 import com.spital.DTO.UserDetails;
+import com.spital.service.PacientService;
 import com.spital.service.SpecializationService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -26,6 +27,9 @@ public class SpecializationController {
 
     @Autowired
     private SpecializationService service;
+
+    @Autowired
+    private PacientService pacientService;
 
     @GetMapping("/specializations")
     public ModelAndView getAllSpecializations(HttpSession session) {
@@ -111,6 +115,21 @@ public class SpecializationController {
         service.deleteSpecialization(specializationID);
         log.info("SpecializationController.deleteSpecialization() has finished.");
         return "redirect:/specializations"; // Redirecționează către pagina de specializari
+    }
+
+
+    @GetMapping("/showSpecializationsToPacient")
+    public ModelAndView showSpecializationsToPacient(HttpSession session, Model model) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        PacientDTO pacient = pacientService.getPacientByEmail(userDetails.getEmail());
+        model.addAttribute("pacient", pacient);
+
+        log.info("SpecializationController.showSpecializationsToPacient() has started...");
+        List<SpecializationDTO> specializations = service.getAllSpecializations();
+        ModelAndView modelAndView = new ModelAndView("showSpecializationsToPacient");
+        modelAndView.addObject("specializations", specializations);
+        log.info("SpecializationController.showSpecializationsToPacient() has finished.");
+        return modelAndView;
     }
 
 }

@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 public class AdminServiceTest {
-
     @Mock
     private AdminRepository adminRepository;
 

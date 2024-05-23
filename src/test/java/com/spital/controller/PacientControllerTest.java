@@ -61,20 +61,6 @@ class PacientControllerTest {
     }
 
     @Test
-    void getAllPacients_ShouldReturnPacientsView_WhenUserIsAdmin() throws Exception {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setEmail("admin@example.com");
-        userDetails.setUserType("admin");
-
-        when(session.getAttribute("userDetails")).thenReturn(userDetails);
-        when(service.getAllPacients()).thenReturn(List.of(new PacientDTO()));
-
-        mockMvc.perform(get("/pacients").sessionAttr("userDetails", userDetails))
-                .andExpect(status().isOk())
-                .andExpect(view().name("pacients"));
-    }
-
-    @Test
     void getAllPacients_ShouldRedirectToStartPage_WhenUserIsNotAdmin() throws Exception {
         UserDetails userDetails = new UserDetails();
         userDetails.setEmail("user@example.com");

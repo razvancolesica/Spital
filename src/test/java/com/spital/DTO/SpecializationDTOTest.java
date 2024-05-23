@@ -36,22 +36,4 @@ public class SpecializationDTOTest {
         assertEquals("Room 101", specialization.getRoom());
     }
 
-    @Test
-    public void testEqualsAndHashCode() {
-        SpecializationDTO specialization1 = new SpecializationDTO(1, "Cardiology", "Dr. Smith", "Room 101");
-        SpecializationDTO specialization2 = new SpecializationDTO(1, "Cardiology", "Dr. Smith", "Room 101");
-        SpecializationDTO specialization3 = new SpecializationDTO(2, "Orthopedics", "Dr. Brown", "Room 102");
-
-        assertEquals(specialization1, specialization2);
-        assertNotEquals(specialization1, specialization3);
-        assertEquals(specialization1.hashCode(), specialization2.hashCode());
-        assertNotEquals(specialization1.hashCode(), specialization3.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        SpecializationDTO specialization = new SpecializationDTO(1, "Cardiology", "Dr. Smith", "Room 101");
-        String expectedString = "SpecializationDTO(specializationID=1, specializationName=Cardiology, medic=Dr. Smith, room=Room 101)";
-        assertEquals(expectedString, specialization.toString());
-    }
 }

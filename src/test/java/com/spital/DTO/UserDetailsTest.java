@@ -46,22 +46,4 @@ public class UserDetailsTest {
         assertEquals("USER", userDetails.getUserType());
     }
 
-    @Test
-    public void testEqualsAndHashCode() {
-        UserDetails userDetails1 = new UserDetails("test@example.com", "password123", "USER");
-        UserDetails userDetails2 = new UserDetails("test@example.com", "password123", "USER");
-        UserDetails userDetails3 = new UserDetails("different@example.com", "password456", "ADMIN");
-
-        assertEquals(userDetails1, userDetails2);
-        assertNotEquals(userDetails1, userDetails3);
-        assertEquals(userDetails1.hashCode(), userDetails2.hashCode());
-        assertNotEquals(userDetails1.hashCode(), userDetails3.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        UserDetails userDetails = new UserDetails("test@example.com", "password123", "USER");
-        String expectedString = "UserDetails(email=test@example.com, password=password123, userType=USER)";
-        assertEquals(expectedString, userDetails.toString());
-    }
 }

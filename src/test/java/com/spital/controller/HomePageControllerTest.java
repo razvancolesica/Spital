@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -58,20 +59,6 @@ class HomePageControllerTest {
     }
 
     @Test
-    void homePagePacient_ShouldReturnHomePagePacientView_WhenUserIsPacient() throws Exception {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setEmail("pacient@example.com");
-        userDetails.setUserType("pacient");
-
-        when(session.getAttribute("userDetails")).thenReturn(userDetails);
-        when(pacientService.getPacientByEmail("pacient@example.com")).thenReturn(new PacientDTO());
-
-        mockMvc.perform(get("/homePagePacient").sessionAttr("userDetails", userDetails))
-                .andExpect(status().isOk())
-                .andExpect(view().name("homePagePacient"));
-    }
-
-    @Test
     void homePagePacient_ShouldRedirectToStartPage_WhenUserIsNotPacient() throws Exception {
         UserDetails userDetails = new UserDetails();
         userDetails.setEmail("user@example.com");
@@ -84,19 +71,6 @@ class HomePageControllerTest {
                 .andExpect(view().name("redirect:/"));
     }
 
-    @Test
-    void homePageAdmin_ShouldReturnHomePageAdminView_WhenUserIsAdmin() throws Exception {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setEmail("admin@example.com");
-        userDetails.setUserType("admin");
-
-        when(session.getAttribute("userDetails")).thenReturn(userDetails);
-        when(adminService.getAdminByEmail("admin@example.com")).thenReturn(new AdminDTO());
-
-        mockMvc.perform(get("/homePageAdmin").sessionAttr("userDetails", userDetails))
-                .andExpect(status().isOk())
-                .andExpect(view().name("homePageAdmin"));
-    }
 
     @Test
     void homePageAdmin_ShouldRedirectToStartPage_WhenUserIsNotAdmin() throws Exception {

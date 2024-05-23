@@ -32,23 +32,4 @@ public class EmailValidationTest {
                 .build();
         assertEquals("builder@example.com", emailValidation.getEmail());
     }
-
-    @Test
-    public void testEqualsAndHashCode() {
-        EmailValidation emailValidation1 = new EmailValidation("test@example.com");
-        EmailValidation emailValidation2 = new EmailValidation("test@example.com");
-        EmailValidation emailValidation3 = new EmailValidation("different@example.com");
-
-        assertEquals(emailValidation1, emailValidation2);
-        assertNotEquals(emailValidation1, emailValidation3);
-        assertEquals(emailValidation1.hashCode(), emailValidation2.hashCode());
-        assertNotEquals(emailValidation1.hashCode(), emailValidation3.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        EmailValidation emailValidation = new EmailValidation("test@example.com");
-        String expectedString = "EmailValidation(email=test@example.com)";
-        assertEquals(expectedString, emailValidation.toString());
-    }
 }

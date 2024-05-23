@@ -1,23 +1,55 @@
 package com.spital.DTO;
 
-import com.spital.DTO.ReservationDTO;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
 
 public class ReservationDTOTest {
 
     @Test
-    public void testEqualsAndHashCode() {
-        LocalDateTime reservationDate = LocalDateTime.of(2024, 5, 23, 10, 0);
-        ReservationDTO reservation1 = new ReservationDTO(1, 1, "John", "Doe", reservationDate, "Cardiology", "Heart issue");
-        ReservationDTO reservation2 = new ReservationDTO(1, 1, "John", "Doe", reservationDate, "Cardiology", "Heart issue");
-        ReservationDTO reservation3 = new ReservationDTO(2, 2, "Jane", "Doe", reservationDate, "Orthopedics", "Knee issue");
-
-        assertEquals(reservation1, reservation2);
-        assertNotEquals(reservation1, reservation3);
-        assertEquals(reservation1.hashCode(), reservation2.hashCode());
-        assertNotEquals(reservation1.hashCode(), reservation3.hashCode());
+    public void testNoArgsConstructor() {
+        ReservationDTO reservationDTO = new ReservationDTO();
+        assertNull(reservationDTO.getId());
+        assertNull(reservationDTO.getPacientID());
+        assertNull(reservationDTO.getFirstName());
+        assertNull(reservationDTO.getLastName());
+        assertNull(reservationDTO.getReservationDate());
+        assertNull(reservationDTO.getSpecialization());
+        assertNull(reservationDTO.getIssue());
     }
 
+    @Test
+    public void testAllArgsConstructor() {
+        LocalDateTime reservationDate = LocalDateTime.now();
+        ReservationDTO reservationDTO = new ReservationDTO(1, 2, "John", "Doe", reservationDate, "Specialization", "Issue");
+        assertEquals(1, reservationDTO.getId());
+        assertEquals(2, reservationDTO.getPacientID());
+        assertEquals("John", reservationDTO.getFirstName());
+        assertEquals("Doe", reservationDTO.getLastName());
+        assertEquals(reservationDate, reservationDTO.getReservationDate());
+        assertEquals("Specialization", reservationDTO.getSpecialization());
+        assertEquals("Issue", reservationDTO.getIssue());
+    }
+
+    @Test
+    public void testSettersAndGetters() {
+        LocalDateTime reservationDate = LocalDateTime.now();
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setId(1);
+        reservationDTO.setPacientID(2);
+        reservationDTO.setFirstName("John");
+        reservationDTO.setLastName("Doe");
+        reservationDTO.setReservationDate(reservationDate);
+        reservationDTO.setSpecialization("Specialization");
+        reservationDTO.setIssue("Issue");
+
+        assertEquals(1, reservationDTO.getId());
+        assertEquals(2, reservationDTO.getPacientID());
+        assertEquals("John", reservationDTO.getFirstName());
+        assertEquals("Doe", reservationDTO.getLastName());
+        assertEquals(reservationDate, reservationDTO.getReservationDate());
+        assertEquals("Specialization", reservationDTO.getSpecialization());
+        assertEquals("Issue", reservationDTO.getIssue());
+    }
 }

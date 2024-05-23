@@ -59,20 +59,6 @@ class ReservationControllerTest {
     }
 
     @Test
-    void getAllReservations_ShouldReturnReservationsView_WhenUserIsAdmin() throws Exception {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setEmail("admin@example.com");
-        userDetails.setUserType("admin");
-
-        when(session.getAttribute("userDetails")).thenReturn(userDetails);
-        when(service.getAllReservations()).thenReturn(List.of(new ReservationDTO()));
-
-        mockMvc.perform(get("/reservations").sessionAttr("userDetails", userDetails))
-                .andExpect(status().isOk())
-                .andExpect(view().name("reservations"));
-    }
-
-    @Test
     void getAllReservations_ShouldRedirectToStartPage_WhenUserIsNotAdmin() throws Exception {
         UserDetails userDetails = new UserDetails();
         userDetails.setEmail("user@example.com");

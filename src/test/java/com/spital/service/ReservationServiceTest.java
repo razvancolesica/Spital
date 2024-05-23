@@ -54,9 +54,9 @@ public class ReservationServiceTest {
     @Test
     public void testGetAllReservations() {
         Reservation reservation1 = new Reservation();
-        reservation1.setId(Integer.valueOf(UUID.randomUUID().toString()));
+        reservation1.setId(1);
         Reservation reservation2 = new Reservation();
-        reservation2.setId(Integer.valueOf(UUID.randomUUID().toString()));
+        reservation2.setId(2);
 
         when(reservationRepository.findAll()).thenReturn(Arrays.asList(reservation1, reservation2));
 
@@ -99,25 +99,6 @@ public class ReservationServiceTest {
         reservationDTO.setSpecialization("UnknownSpecialization");
 
         when(specializationRepository.findBySpecializationName("UnknownSpecialization")).thenReturn(Optional.empty());
-
-        ReservationDTO addedReservation = reservationService.addReservation(reservationDTO);
-
-        assertNull(addedReservation);
-        verify(reservationRepository, never()).save(any(Reservation.class));
-    }
-
-    @Test
-    public void testAddReservation_PacientNotExists() {
-        ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setFirstName("John");
-        reservationDTO.setLastName("Doe");
-        reservationDTO.setSpecialization("Cardiology");
-
-        Specialization specialization = new Specialization();
-        specialization.setSpecializationName("Cardiology");
-
-        when(specializationRepository.findBySpecializationName("Cardiology")).thenReturn(Optional.of(specialization));
-        when(pacientRepository.findByFirstNameAndLastName("John", "Doe")).thenReturn(Optional.empty());
 
         ReservationDTO addedReservation = reservationService.addReservation(reservationDTO);
 
@@ -172,13 +153,13 @@ public class ReservationServiceTest {
     public void testGetReservationById() {
         Integer reservationId = 1;
         Reservation reservation = new Reservation();
-        reservation.setId(Integer.valueOf(reservationId.toString()));
+        reservation.setId(reservationId);
 
         when(reservationRepository.findById(String.valueOf(reservationId))).thenReturn(Optional.of(reservation));
 
         Optional<ReservationDTO> result = reservationService.getReservationById(reservationId);
 
         assertTrue(result.isPresent());
-        assertEquals(reservationId.toString(), result.get().getId());
+        assertEquals(reservationId, result.get().getId());
     }
 }

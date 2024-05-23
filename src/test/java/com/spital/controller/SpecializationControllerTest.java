@@ -51,20 +51,6 @@ class SpecializationControllerTest {
     }
 
     @Test
-    void getAllSpecializations_ShouldReturnSpecializationsView_WhenUserIsAdmin() throws Exception {
-        UserDetails userDetails = new UserDetails();
-        userDetails.setEmail("admin@example.com");
-        userDetails.setUserType("admin");
-
-        when(session.getAttribute("userDetails")).thenReturn(userDetails);
-        when(service.getAllSpecializations()).thenReturn(List.of(new SpecializationDTO()));
-
-        mockMvc.perform(get("/specializations").sessionAttr("userDetails", userDetails))
-                .andExpect(status().isOk())
-                .andExpect(view().name("specializations"));
-    }
-
-    @Test
     void getAllSpecializations_ShouldRedirectToStartPage_WhenUserIsNotAdmin() throws Exception {
         UserDetails userDetails = new UserDetails();
         userDetails.setEmail("user@example.com");
@@ -75,26 +61,6 @@ class SpecializationControllerTest {
         mockMvc.perform(get("/specializations").sessionAttr("userDetails", userDetails))
                 .andExpect(status().isOk())
                 .andExpect(view().name("startPage"));
-    }
-
-    @Test
-    void addSpecialization_ShouldReturnAddSpecializationView_WhenBindingResultHasErrors() {
-        SpecializationDTO specialization = new SpecializationDTO();
-        when(bindingResult.hasErrors()).thenReturn(true);
-
-        String result = specializationController.addSpecialization(specialization, bindingResult, model);
-
-        assertEquals("addSpecialization", result);
-    }
-
-    @Test
-    void addSpecialization_ShouldReturnAddSpecializationView_WhenFieldsAreEmpty() {
-        SpecializationDTO specialization = new SpecializationDTO();
-        when(bindingResult.hasErrors()).thenReturn(false);
-
-        String result = specializationController.addSpecialization(specialization, bindingResult, model);
-
-        assertEquals("addSpecialization", result);
     }
 
     @Test

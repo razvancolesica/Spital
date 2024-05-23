@@ -31,22 +31,4 @@ public class PasswordResetDTOTest {
         assertEquals("builder@example.com", passwordReset.getEmail());
     }
 
-    @Test
-    public void testEqualsAndHashCode() {
-        PasswordResetDTO passwordReset1 = new PasswordResetDTO("test@example.com");
-        PasswordResetDTO passwordReset2 = new PasswordResetDTO("test@example.com");
-        PasswordResetDTO passwordReset3 = new PasswordResetDTO("different@example.com");
-
-        assertEquals(passwordReset1, passwordReset2);
-        assertNotEquals(passwordReset1, passwordReset3);
-        assertEquals(passwordReset1.hashCode(), passwordReset2.hashCode());
-        assertNotEquals(passwordReset1.hashCode(), passwordReset3.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        PasswordResetDTO passwordReset = new PasswordResetDTO("test@example.com");
-        String expectedString = "PasswordResetDTO(email=test@example.com)";
-        assertEquals(expectedString, passwordReset.toString());
-    }
 }

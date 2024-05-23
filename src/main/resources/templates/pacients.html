@@ -17,14 +17,13 @@
         <button class="user-btn">
             <img th:src="@{/images/admin-profile-image.jpeg}" alt="User Avatar">
             <div class="user-info">
-                <span class="user-name">Frederick Coleman</span>
+                <span class="user-name">Admin</span>
                 <span class="user-role">Admin</span>
             </div>
             <i id="user-icon" class="fas fa-chevron-down dropdown-arrow"></i>
         </button>
         <div class="dropdown-content" id="dropdown-content">
-            <a href="#">My Profile</a>
-            <a href="#">Log Out</a>
+            <a href="/" onclick="return confirm('Are you sure you want to log out?');">Log Out</a>
         </div>
     </div>
 </div>

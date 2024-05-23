@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediCore - Edit Patient</title>
+  <title>MediCore - Edit Profile</title>
   <link rel="icon" th:href="@{/images/favicon.png}" type="image/x-icon">
   <link rel="stylesheet" th:href="@{/formStyleSheet.css}">
 </head>
 
 <body>
 <div class="container">
-  <form class="form-container" th:action="@{/editPacient}" th:object="${pacient}" method="post">
-    <h2 class="h2-title">Edit Patient</h2>
+  <form class="form-container" th:action="@{/editPacientProfile}" th:object="${pacient}" method="post">
+    <h2 class="h2-title">Edit Your Profile</h2>
     <input type="hidden" name="id" th:value="${pacient.pacientID}" />
     <input type="text" placeholder="firstName" th:field="*{firstName}"><br>
     <input type="text" placeholder="lastName" th:field="*{lastName}"><br>

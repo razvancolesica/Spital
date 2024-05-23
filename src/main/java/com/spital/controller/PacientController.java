@@ -110,7 +110,7 @@ public class PacientController {
         log.info("ReservationController.deletePacient() has started...");
         service.deletePacient(pacientID);
         log.info("ReservationController.deletePacient() has finished.");
-        return "redirect:/pacients"; // Redirecționează către pagina de pacienti
+        return "redirect:/pacients";
     }
 
 
@@ -173,14 +173,40 @@ public class PacientController {
     }
 
 
+    @PostMapping("/deletePacientAccount")
+    public String deletePacientAccount(@RequestParam Integer pacientID) {
+        log.info("ReservationController.deletePacientAccount() has started...");
+        service.deletePacient(pacientID);
+        log.info("ReservationController.deletePacientAccount() has finished.");
+        return "redirect:/";
+    }
+
     @GetMapping("/myProfile")
     public String getMyProfile(HttpSession session, Model model){
         UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
         PacientDTO pacient = service.getPacientByEmail(userDetails.getEmail());
         model.addAttribute("pacient", pacient);
-
-
         return "myProfile";
+    }
+
+
+    @PostMapping("/editPacientProfile")
+    public String editPacientProfile(@RequestParam Integer id, @ModelAttribute("pacient") PacientDTO updatedPacientDTO) {
+        service.editPacient(id, updatedPacientDTO);
+        return "redirect:/myProfile";
+    }
+
+    @GetMapping("/showEditPacientProfile")
+    public String showEditPacientProfile(@RequestParam Integer id, Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
+        Optional<PacientDTO> pacientDTOOptional = service.getPacientById(id);
+
+        if (pacientDTOOptional.isPresent()) {
+            model.addAttribute("pacient", pacientDTOOptional.get());
+            return "editPacientProfile";
+        } else {
+            return "redirect:/myProfile";
+        }
     }
 
 }

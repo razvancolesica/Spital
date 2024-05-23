@@ -165,7 +165,7 @@
 <div class="top-bar">
     <div class="user-button">
         <button class="user-btn">
-            <img th:src="@{/images/pacient-profile-image.svg}" alt="User Avatar">
+            <img th:src="@{/images/admin-profile-image.jpeg}" alt="User Avatar">
             <div class="user-info">
                 <span class="user-name">Admin</span>
                 <span class="user-role">Admin</span>
@@ -231,7 +231,9 @@
                     <div id="calendar"></div>
                 </div>
                 <div class="table-container">
-                    <div id="default-message">Please select a date from the calendar to see reservations.</div>
+                    <div id="default-message" style="text-align: center; font-size: 18px; background-color: #f9f9f9; color: #666; width:100%;">
+                        <p>Please select a date from the calendar to see reservations.</p>
+                    </div>
                     <div id="table-container"></div>
                 </div>
             </div>

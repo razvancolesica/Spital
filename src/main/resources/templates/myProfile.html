@@ -158,7 +158,7 @@
                 <ul>
                     <li><a href="homePagePacient"><i class="fas fa-house-medical menu-icon"></i>Home</a></li>
                     <li><a href="reservationsForPacient"><i class="fas fa-calendar-days menu-icon"></i>My Reservations</a></li>
-                    <li><a href="showSpecializationsToPacient"><i class="fas fa-hospital-user menu-icon"></i>Specializations</a></li>
+                    <li><a href="showSpecializationsToPacient"><i class="fa-solid fa-briefcase-medical"></i> Specializations</a></li>
                 </ul>
             </nav>
         </div>
@@ -178,11 +178,13 @@
                             <h4 class="pacient-name" th:text="${pacient.firstName} + ' ' + ${pacient.lastName}"></h4>
                         </div>
                         <div class="profile-actions">
-                            <form th:action="@{/editPacientProfile}" method="get">
+                            <form th:action="@{/showEditPacientProfile}" method="get">
+                                <input type="hidden" name="id" th:value="${pacient.pacientID}" />
                                 <button class="btn btn-edit" type="submit"><i class='bx bxs-edit'></i> Edit Account</button>
                             </form>
-                            <form id="deleteAccountForm" action="/deletePacient" method="post">
-                                <button class="btn btn-delete" type="button" onclick="confirmDeleteAccount()"><i class='bx bxs-trash'></i> Delete Account</button>
+                            <form id="deleteAccountForm" th:action="@{/deletePacientAccount}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                                <input type="hidden" name="pacientID" th:value="${pacient.pacientID}" />
+                                <button class="btn btn-delete" type="submit"><i class='bx bxs-trash'></i> Delete Account</button>
                             </form>
                         </div>
                     </div>
@@ -228,7 +230,7 @@
 
 <script>
 function toggleDropdown(event) {
-  event.stopPropagation(); // Oprire propagare eveniment pentru a preveni deschiderea meniului dropdown atunci când se apasă pe numele sau poza utilizatorului
+  event.stopPropagation();
   document.getElementById("dropdown-content").classList.toggle("show");
 }
 

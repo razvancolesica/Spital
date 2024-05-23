@@ -2,28 +2,40 @@
     font-family: "Poppins", sans-serif;
 }
 
-body{
-  overflow-x: hidden;
+body {
+    overflow-x: clip;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.all-content{
+.all-content {
     display: flex;
+    flex: 1;
 }
 
 .main-content {
-  flex:1;
-  margin-left:200px;
-  margin-top: 0px;
-  background: #f9f9f9;
-  padding: 0.5rem;
-  height: 100%;
-  width: 100vw;
+    flex: 1;
+    margin-left: 200px;
+  margin-top: 50px;
+    /*background: #f9f9f9;*/
+    background-image: url('/images/background-image.jpg');
+    background-size: 150px;
+    background-position: center;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
+
 .top-bar {
+  position: fixed;
   background-color: #fff;
   height: 50px;
   width: 100%;
+  margin-top: 0px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -48,7 +60,7 @@ body{
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 0px;
+  margin-right: 10px;
 }
 
 .dropdown-arrow {
@@ -62,7 +74,7 @@ body{
 .user-info {
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .user-name {
@@ -210,6 +222,14 @@ nav ul li a:hover {
     background-color: #fff;
     height: 55px;
 }
+
+.table-container tr:nth-child(even) {
+        background-color: #f7e5ea!important;
+    }
+
+.table-container tr:nth-child(odd) {
+        background-color: #fff!important;
+    }
 
 .actions-container {
   display: flex;

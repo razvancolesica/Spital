@@ -79,7 +79,7 @@ public class AuthControllerTest {
                         .param("password", "WrongPassword"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
-                .andExpect(flash().attribute("errorMessage", "Invalid pacient credentials."));
+                .andExpect(flash().attribute("errorMessage", "Invalid email or password!"));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class AuthControllerTest {
                         .param("password", "WrongPassword"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
-                .andExpect(flash().attribute("errorMessage", "Invalid admin credentials."));
+                .andExpect(flash().attribute("errorMessage", "Invalid email or password!"));
     }
 
     @Test
@@ -131,6 +131,6 @@ public class AuthControllerTest {
                         .param("password", ""))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
-                .andExpect(flash().attribute("errorMessage", "Email and password must not be empty."));
+                .andExpect(flash().attribute("errorMessage", "Invalid email or password!"));
     }
 }

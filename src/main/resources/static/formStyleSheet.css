@@ -61,8 +61,8 @@ body{
 
 .form-container button[type="submit"] {
     width: 100%;
-    background: rgb(98, 75, 117);
-    background: linear-gradient(90deg, rgba(98, 75, 117, 1) 0%, rgba(213, 109, 136, 1) 100%);
+    background-image: linear-gradient(to right, #cf5a7a 0%, #624B75  51%, #cf5a7a  100%);
+    transition: 0.5s; background-size: 200% auto;
     color: #fff;
     padding: 20px;
     border: none;
@@ -73,8 +73,8 @@ body{
 }
 
 .form-container button[type="submit"]:hover {
-    background: rgb(213,109,136);
-    background: linear-gradient(90deg, rgba(213,109,136,1) 0%, rgba(98,75,117,1) 100%);
+    color:#fff;
+    background-position: right center;
 }
 
 .form-container span#charCount{

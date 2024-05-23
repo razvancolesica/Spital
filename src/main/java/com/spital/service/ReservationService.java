@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -131,5 +132,13 @@ public class ReservationService {
         log.info("ReservationService.getReservationById(Integer id) retrieving reservation by ID...");
         Optional<Reservation> reservationOptional = reservationRepository.findById(String.valueOf(id));
         return reservationOptional.map(r -> mapper.map(r, ReservationDTO.class));
+    }
+
+    public List<ReservationDTO> getReservationsByDate(LocalDate date) {
+        log.info("ReservationService.getReservationsByDate(LocalDate date) retrieving reservations for date...");
+        return reservationRepository.findAll().stream()
+                .filter(reservation -> reservation.getReservationDate().toLocalDate().equals(date))
+                .map(reservation -> mapper.map(reservation, ReservationDTO.class))
+                .collect(Collectors.toList());
     }
 }

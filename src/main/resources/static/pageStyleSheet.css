@@ -4,7 +4,6 @@
 
 body{
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .all-content{
@@ -17,7 +16,7 @@ body{
   margin-top: 0px;
   background: #f9f9f9;
   padding: 0.5rem;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 

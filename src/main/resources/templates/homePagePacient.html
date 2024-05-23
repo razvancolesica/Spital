@@ -56,16 +56,15 @@
             box-shadow: none !important;
         }
 
-        .fc-today-button{
+        .fc-today-button {
             background-color: #913f55 !important;
         }
 
-         .fc-today-button:hover{
-             background-color: #682d3d !important;
+        .fc-today-button:hover {
+            background-color: #682d3d !important;
+        }
 
-         }
-
-        .fc-button:hover{
+        .fc-button:hover {
             background-color: #682d3d !important;
         }
 
@@ -76,7 +75,7 @@
         .table-container {
             width: 57.5%;
             margin-top: 0;
-             position: relative;
+            position: relative;
         }
 
         #table-container {
@@ -97,25 +96,35 @@
             color: white;
         }
 
-         .fc-daygrid-day:hover {
+        .fc-daygrid-day:hover {
             cursor: pointer;
             background-color: #f9f9f9;
         }
 
         .reservation-day {
-            background-color: #38a457 !important;
+            background-color: #e7adbd !important;
             color: white;
         }
 
-        .reservation-day:hover{
-            background-color: #1f8b3d !important;
+        .reservation-day:hover {
+            background-color: #dd8ca2 !important;
         }
 
-        .fc-toolbar-title{
+        .selected-day {
+            background-color: #adbde7 !important;
+            color: white;
+        }
+
+        .fc-day-today {
+            background-color: #ade7d7 !important;
+            color: white !important;
+        }
+
+        .fc-toolbar-title {
             margin-left: 3px !important;
         }
 
-        .add-reservation-button-by-pacient{
+        .add-reservation-button-by-pacient {
             position: absolute;
             left: 50%;
             transform: translate(-50%, 0);
@@ -128,14 +137,15 @@
             padding: 10px 15px;
             border-radius: 15px;
             background: rgb(98, 75, 117);
-            background: linear-gradient(to right, #cf5a7a 0%, #624B75  51%, #cf5a7a  100%);
-            transition: 0.5s; background-size: 200% auto;
+            background: linear-gradient(to right, #cf5a7a 0%, #624B75 51%, #cf5a7a 100%);
+            transition: 0.5s;
+            background-size: 200% auto;
             color: #ffffff;
             border: none;
         }
 
-        .add-reservation-button-by-pacient:hover{
-            color:#fff;
+        .add-reservation-button-by-pacient:hover {
+            color: #fff;
             background-position: right center;
             cursor: pointer;
         }
@@ -179,7 +189,7 @@
                 <ul>
                     <li><a class="active-page" href="homePagePacient"><i class="fas fa-house-medical menu-icon"></i>Home</a></li>
                     <li><a href="reservationsForPacient"><i class="fas fa-calendar-days menu-icon"></i>My Reservations</a></li>
-                    <li><a href="showSpecializationsToPacient"><i class="fas fa-hospital-user menu-icon"></i>Specializations</a></li>
+                    <li><a href="showSpecializationsToPacient"><i class="fa-solid fa-briefcase-medical"></i> Specializations</a></li>
                 </ul>
             </nav>
         </div>
@@ -255,6 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var tableContainer = document.getElementById('table-container');
     var defaultMessage = document.getElementById('default-message');
     var currentDate = new Date(); // Data curentă
+    var selectedCell = null; // Store the currently selected cell
 
     fetch('/patientReservationDates')
         .then(response => response.json())
@@ -263,6 +274,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 initialView: 'dayGridMonth',
                 dateClick: function(info) {
                     var selectedDate = new Date(info.dateStr);
+
+                    // Clear the previous selection
+                    if (selectedCell) {
+                        selectedCell.classList.remove('selected-day');
+                        if (dates.includes(selectedCell.getAttribute('data-date'))) {
+                            selectedCell.classList.add('reservation-day');
+                        }
+                    }
+
+                    // Highlight the new selection
+                    info.dayEl.classList.add('selected-day');
+                    selectedCell = info.dayEl;
+
                     fetch('/reservationsOverviewForDay?date=' + info.dateStr)
                         .then(response => response.text())
                         .then(data => {
@@ -292,9 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.render();
         });
 });
-
-
 </script>
-
 </body>
 </html>

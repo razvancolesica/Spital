@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 
@@ -70,15 +71,66 @@ public class HomePageController {
     }
 
     @GetMapping("/homePageAdmin")
-    public String homePageAdmin(Model model, HttpSession session){
+    public String homePageAdmin(Model model, HttpSession session) {
         UserDetails userDetails = (UserDetails) session.getAttribute("userDetails");
         AdminDTO admin = adminService.getAdminByEmail(userDetails.getEmail());
-        if(!userDetails.getUserType().equals("admin"))
-        {
+        if (!userDetails.getUserType().equals("admin")) {
             return "redirect:/";
         }
         model.addAttribute("admin", admin);
+
+        int totalReservations = reservationService.getAllReservations().size();
+        model.addAttribute("totalReservations", totalReservations);
+
+        int totalPacients = pacientService.getAllPacients().size();
+        model.addAttribute("totalPacients", totalPacients);
+
+        int totalSpecializations = specializationService.getAllSpecializations().size();
+        model.addAttribute("totalSpecializations", totalSpecializations);
+
+        int totalDoctors = specializationService.getAllSpecializations().size();
+        model.addAttribute("totalDoctors", totalDoctors);
+
         return "homePageAdmin";
+    }
+
+    @GetMapping("/adminReservationsOverviewForDay")
+    public String getAdminReservationsOverview(@RequestParam(value = "date", required = false) String dateStr, Model model) {
+        LocalDate date;
+        if (dateStr != null) {
+            date = LocalDate.parse(dateStr);
+        } else {
+            date = null;
+        }
+
+        List<ReservationDTO> reservationList = reservationService.getAllReservations().stream()
+                .filter(reservation -> reservation.getReservationDate().toLocalDate().equals(date))
+                .collect(Collectors.toList());
+
+        boolean hasReservations = !reservationList.isEmpty();
+        boolean isFutureDate = date != null && date.isAfter(LocalDate.now());
+
+        model.addAttribute("reservationList", reservationList);
+        model.addAttribute("hasReservations", hasReservations);
+        model.addAttribute("isFutureDate", isFutureDate);
+
+        return "reservationForDateTable :: table";
+    }
+
+    @GetMapping("/adminReservationDates")
+    @ResponseBody
+    public List<LocalDate> getAdminReservationDates() {
+        List<ReservationDTO> reservations = reservationService.getAllReservations();
+        List<LocalDate> reservationDates = new ArrayList<>();
+
+        for (ReservationDTO reservation : reservations) {
+            LocalDate reservationDate = reservation.getReservationDate().toLocalDate();
+            if (!reservationDates.contains(reservationDate)) {
+                reservationDates.add(reservationDate);
+            }
+        }
+
+        return reservationDates;
     }
 
     @GetMapping("/validateAccount")

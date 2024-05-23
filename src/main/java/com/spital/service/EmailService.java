@@ -33,7 +33,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Reservation submitted successfully");
-        message.setText("Dear " + firstName + " " + lastName + ", your reservation for " + date + " at " + specialization + " has been done.");
+        message.setText("Dear " + firstName + " " + lastName + ", your reservation for " + date + " at " + specialization + " has been submitted successfully.");
         emailSender.send(message);
     }
 }

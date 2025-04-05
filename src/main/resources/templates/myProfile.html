@@ -135,7 +135,7 @@
         <button class="user-btn">
             <img th:src="@{/images/pacient-profile-image.svg}" alt="User Avatar">
             <div class="user-info">
-                <span class="user-name" th:text="${pacient.lastName + ' ' + pacient.firstName}"></span>
+                <span class="user-name" style="font-size: 12.5px;" th:text="${pacient.lastName + ' ' + pacient.firstName}"></span>
                 <span class="user-role">Pacient</span>
             </div>
             <i id="user-icon" class="fas fa-chevron-down dropdown-arrow"></i>
